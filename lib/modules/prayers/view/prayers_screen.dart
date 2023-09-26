@@ -16,14 +16,7 @@ class PrayersScreen extends StatelessWidget {
       create: (context) => PrayersCubit()..getPrayer(),
       child: Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              )),
+         
           backgroundColor: AppColors.primaryColor,
           title: Text(
             camilCaseMethod("Prayers"),

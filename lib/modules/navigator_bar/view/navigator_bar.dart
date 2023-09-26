@@ -19,10 +19,11 @@ class NavigatorBarScreen extends StatelessWidget {
           return Scaffold(
             body: controller.pages[controller.selectedIndex],
             bottomNavigationBar: BottomNavigationBar(
+              fixedColor: AppColors.primaryColor,
               unselectedLabelStyle:
-                  const TextStyle(fontWeight: FontWeight.w500, fontSize: 14,    fontFamily:"head",),
+                  const TextStyle(fontWeight: FontWeight.w500, fontSize: 14, color: Color.fromARGB(255, 224, 224, 224),  fontFamily:"head",),
               selectedLabelStyle:
-                  const TextStyle(fontWeight: FontWeight.w700, fontSize: 15,    fontFamily:"head",),
+                  const TextStyle(fontWeight: FontWeight.w700, fontSize: 15,  color: AppColors.primaryColor, fontFamily:"head",),
               items: [
                 BottomNavigationBarItem(
                     icon: Image.asset(
@@ -38,7 +39,14 @@ class NavigatorBarScreen extends StatelessWidget {
                       cacheWidth:50,
                       cacheHeight: 50,
                     ),
-                    label: "Hadiths"),
+                    label: "Hadiths"),  BottomNavigationBarItem(
+                    icon: Image.asset(
+                      "assets/images/azkar.png",
+                      cacheWidth:50, 
+
+                      cacheHeight: 50,
+                    ),
+                    label: "Azkar"),
                 BottomNavigationBarItem(
                     icon: Image.asset(
                       "assets/images/prayer.png",

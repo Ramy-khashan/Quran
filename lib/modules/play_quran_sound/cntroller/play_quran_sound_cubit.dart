@@ -46,11 +46,9 @@ class PlayQuranSoundCubit extends Cubit<PlayQuranSoundState> {
           emit(PausedAudioState());
         } else if (processingState != ProcessingState.completed) {
           buttonNotifier.value = ButtonState.playing;
-// changeSurah(true);
-          emit(PlayingAudioState());
+           emit(PlayingAudioState());
         } else {
-          // completed
-          audioPlayer.seek(Duration.zero);
+           audioPlayer.seek(Duration.zero);
           audioPlayer.pause();
           changeSurah(true);
         }

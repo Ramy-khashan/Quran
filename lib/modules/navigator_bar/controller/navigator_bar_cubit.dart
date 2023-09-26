@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_app/modules/home_page/view/home_page_screen.dart';
 
+import '../../azkar/view/azkar_screen.dart';
 import '../../hadiths/view/hadiths_screen.dart';
 import '../../prayers/view/prayers_screen.dart';
 
@@ -15,6 +16,7 @@ class NavigatorBarCubit extends Cubit<NavigatorBarState> {
   List<Widget> pages = [
     const HomePageScreen(),
     const HadithsScreen(),
+    const AzkarScreen(),
     const PrayersScreen(),
   ];
   changePage(selectedPage) {
