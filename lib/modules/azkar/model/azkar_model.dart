@@ -1,18 +1,29 @@
-class AzkarModel {
+import 'package:hive/hive.dart';
+part 'azkar_model.g.dart';
+
+@HiveType(typeId: 0)
+class AzkarModel extends HiveObject {
+  @HiveField(0)
   int? iD;
+  @HiveField(1)
   String? aRABICTEXT;
+  @HiveField(2)
   String? lANGUAGEARABICTRANSLATEDTEXT;
+  @HiveField(3)
   String? tRANSLATEDTEXT;
+  @HiveField(4)
   int? rEPEAT;
-  String? aUDIO; 
-  String? text; 
+  @HiveField(5)
+  String? aUDIO;
+  @HiveField(6)
+  String? text;
   AzkarModel(
       {this.iD,
       this.aRABICTEXT,
       this.lANGUAGEARABICTRANSLATEDTEXT,
       this.tRANSLATEDTEXT,
-      this.rEPEAT, 
-      this.text, 
+      this.rEPEAT,
+      this.text,
       this.aUDIO});
 
   AzkarModel.fromJson(Map<String, dynamic> json) {

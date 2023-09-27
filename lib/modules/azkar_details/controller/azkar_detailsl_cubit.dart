@@ -8,9 +8,7 @@ import '../../azkar/model/azkar_model.dart';
 part 'azkar_detailsl_state.dart';
 
 class AzkarDetailsCubit extends Cubit<AzkarDetailslState> {
-  AzkarDetailsCubit(this.azkarRepositoryImpl) : super(AzkarDetailslInitial()) {
-    audioPlayer = AudioPlayer();
-  }
+  AzkarDetailsCubit(this.azkarRepositoryImpl) : super(AzkarDetailslInitial()) ;
   final AzkarRepositoryImpl azkarRepositoryImpl;
   static AzkarDetailsCubit get(context) => BlocProvider.of(context);
   bool isLoading = true;
@@ -32,8 +30,10 @@ isFaild=true;
   int selectedOne = -1;
   AudioPlayer? audioPlayer;
   play(url, index) async {
+   
     selectedOne = index;
     emit(StartAudioState());
+    audioPlayer = AudioPlayer();
 
     if (audioPlayer!.playing) {
       await audioPlayer!.stop();
@@ -41,12 +41,13 @@ isFaild=true;
     await audioPlayer!.setUrl(url);
 
     await audioPlayer!.play();
-    audioPlayer!.playerStateStream.listen((event) {
-      if(!event.playing){
-    selectedOne = -1;
-emit(StopAudioState());
-      }
-     });
+//     audioPlayer!.playerStateStream.listen((event) {
+//       if(!event.playing){
+//     selectedOne = -1;
+// emit(StopAudioState());
+//       }
+//      });
+ 
     emit(PlayAudioState());
   }
 
