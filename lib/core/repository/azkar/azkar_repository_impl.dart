@@ -15,8 +15,8 @@ class AzkarRepositoryImpl implements AzkarRepository {
   AzkarRepositoryImpl({required this.dio});
   List<AzkarModel> azkarList = [];
   @override
-  Future<Either<ServerException,  List<AzkarModel> >> azkar(
-      {required int azkarId,required String lang}) async {
+  Future<Either<ServerException, List<AzkarModel>>> azkar(
+      {required int azkarId, required String lang}) async {
     try {
       azkarList = [];
       Map res =
@@ -25,9 +25,10 @@ class AzkarRepositoryImpl implements AzkarRepository {
       for (var element in List.from(res.entries.first.value)) {
         azkarList.add(AzkarModel.fromJson(element));
       }
-      return right(  azkarList );
+      return right(azkarList);
     } on DioError catch (e) {
       return left(ServerException(e.message.toString()));
     }
   }
 }
+// http://api.alquran.cloud/v1/surah/114/editions/ar.alafasy,en.pickthall
