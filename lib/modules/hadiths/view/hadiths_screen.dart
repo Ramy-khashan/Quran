@@ -1,10 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quran_app/core/utils/service_locator.dart';
-import 'package:quran_app/core/widgets/loading_item.dart';
-import 'package:quran_app/modules/hadiths/controller/hadiths_cubit.dart';
-
-import '../../../core/repository/hadiths/hadiths_repository_impl.dart';
+import 'package:flutter/material.dart';  
+import '../../../core/data/hadith_data.dart'; 
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/size_config.dart';
 import '../../hadith_details/view/hadiths_details_screen.dart';
@@ -14,10 +9,7 @@ class HadithsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          HadithsCubit(sl.get<HadithsRepositoryImpl>())..getHadiths(),
-      child: Scaffold(
+    return  Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.primaryColor,
           title: Text(
@@ -31,19 +23,10 @@ class HadithsScreen extends StatelessWidget {
           ),
           centerTitle: true,
         ),
-        body: BlocBuilder<HadithsCubit, HadithsState>(
-          builder: (context, state) {
-            final controller = HadithsCubit.get(context);
-            return controller.isLoading
-                ? const LoadingItem()
-                : controller.isFaild
-                    ? const Center(
-                        child: Text("SomeThing went wrong, Try again later."),
-                      )
-                    : ListView.builder(
+        body:  ListView.builder(
                         padding: const EdgeInsets.all(7),
                         itemBuilder: (context, index) {
-                          return Card(
+                            return Card(
                             clipBehavior: Clip.antiAliasWithSaveLayer,
                             child: ListTile(
                               onTap: () {
@@ -52,27 +35,26 @@ class HadithsScreen extends StatelessWidget {
                                     MaterialPageRoute(
                                       builder: (context) =>
                                           HadithsDetailsScreen(
-                                            name:controller.hadiths[index].name
+                                        name:  HadithData.hadith[index].name
                                             .toString(),
-                                        slug: controller.hadiths[index].slug
+                                        slug:  HadithData.hadith[index].slug
                                             .toString(),
                                       ),
                                     ));
                               },
                               title: Text(
-                                controller.hadiths[index].name.toString(),
+                               HadithData.hadith[index].name.toString(),
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w700, fontSize: 20),
                               ),
                               subtitle: Text(
-                                  "Hadiths Number : ${controller.hadiths[index].total}"),
+                                  "Hadiths Number : ${ HadithData.hadith[index].total}"),
                             ),
                           );
                         },
-                        itemCount: controller.hadiths.length);
-          },
-        ),
-      ),
+                        itemCount:  HadithData.hadith.length) 
+         
+     
     );
   }
 }

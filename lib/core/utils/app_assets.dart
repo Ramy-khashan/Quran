@@ -2,6 +2,7 @@ class AppAssets {
   static const String imageBaseUrl = "assets/images/";
 
   static const String logo = "${imageBaseUrl}logo.png";
+  static const String splash = "${imageBaseUrl}quran.png";
   static const String notFoundImage = "${imageBaseUrl}not_found.png";
   static const String errorNetwork = "${imageBaseUrl}no_internet.png";
   static const String mosqueImage = "${imageBaseUrl}mosque.png";

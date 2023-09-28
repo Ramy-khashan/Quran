@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:quran_app/modules/prayers/controller/prayers_cubit.dart';
+ import 'package:quran_app/modules/prayers/controller/prayers_cubit.dart';
 
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/camil_case.dart';
@@ -19,7 +18,7 @@ class PrayersScreen extends StatelessWidget {
          
           backgroundColor: AppColors.primaryColor,
           title: Text(
-            camilCaseMethod("Prayers"),
+            camilCaseMethod("Tasbih"),
             style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
@@ -104,25 +103,7 @@ class PrayersScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Card(
-                    child: ListTile(
-                  onTap: () {
-                    Fluttertoast.showToast(
-                        msg: "Coming soon!",
-                        backgroundColor: AppColors.primaryColor);
-                  },
-                  title: Text(
-                    "History",
-                    style: TextStyle(
-                        fontSize: getFont(25),
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "quran"),
-                  ),
-                  trailing: const Icon(
-                    Icons.keyboard_arrow_down_outlined,
-                    size: 30,
-                  ),
-                ))
+                 
               ],
             );
           },

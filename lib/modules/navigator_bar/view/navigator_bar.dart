@@ -54,7 +54,7 @@ class NavigatorBarScreen extends StatelessWidget {
                       color: AppColors.primaryColor,
                       cacheHeight: 50,
                     ),
-                    label: "Prayers"),
+                    label: "Tasbih"),
               ],
               currentIndex: controller.selectedIndex,
               onTap: (value) {

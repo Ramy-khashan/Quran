@@ -12,7 +12,7 @@ import 'modules/home_page/cubit/homepage_cubit.dart';
 import 'config/change_theme/changetheme_cubit.dart';
 import 'config/change_theme/changetheme_states.dart';
 import 'core/utils/app_string.dart';
-import 'modules/navigator_bar/view/navigator_bar.dart';
+ import 'modules/splash_screen/view/splash_screen.dart';
 
 class QuranApp extends StatefulWidget {
   const QuranApp({super.key});
@@ -101,7 +101,7 @@ class _QuranAppState extends State<QuranApp> {
         ),
         home: BlocBuilder<ChangeTheme, ChangeThemeState>(
           builder: (context, state) {
-            return const NavigatorBarScreen();
+            return const SplashScreen();
           },
         ),
       ),
