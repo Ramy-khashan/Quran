@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart'; 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/data/surah_head_data.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/size_config.dart';
 import '../../sura/view/sura_screen.dart';
 
-import '../controller/quran_reading_cubit.dart'; 
+import '../controller/quran_reading_cubit.dart';
 
 class QuranScreen extends StatelessWidget {
   const QuranScreen({super.key});
@@ -12,7 +13,7 @@ class QuranScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => QuranReadingCubit()..readJson(),
+        create: (context) => QuranReadingCubit() ,
         child: Scaffold(
             appBar: AppBar(
               leading: IconButton(
@@ -37,39 +38,41 @@ class QuranScreen extends StatelessWidget {
             ),
             body: BlocBuilder<QuranReadingCubit, QuranReadingState>(
               builder: (context, state) {
-                final controller = QuranReadingCubit.get(context);
-                return controller.surahList.isEmpty
-                    ? const Center(child: CircularProgressIndicator())
-                    : ListView.separated(
+                 return   ListView.separated(
                         itemBuilder: (context, index) => ListTile(
-                          leading: CircleAvatar(
-                            child:
-                                Text(controller.surahList[index].id.toString()),
-                          ),
-                          title: Text(controller.surahList[index].name),
-                          subtitle: Text(controller.surahList[index].versesCount
-                              .toString()),
-                          trailing: Text(
-                            controller.surahList[index].arabicName,
-                            style: const TextStyle(
-                              fontSize: 18,
-                            ),
+                          leading:  
+                                Image.asset(SurahHeadData.surahhead[index].revelationType=="Meccan"?"assets/images/meccan.png":"assets/images/medinan.png",cacheHeight: 30,cacheWidth: 30,) ,
+                           
+                          title: Column(crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Text(
+                                SurahHeadData.surahhead[index].nameAr,
+                                textAlign: TextAlign.right,
+                                textDirection: TextDirection.rtl,
+                                style: const TextStyle(fontSize: 20,fontFamily: "quran"),
+                              ),
+                              Text(
+                                SurahHeadData.surahhead[index].nameEn,
+                                textAlign: TextAlign.left,
+                                textDirection: TextDirection.ltr,
+                                style: const TextStyle(fontSize: 20,fontFamily: "head"),
+                              ),
+                            ],
                           ),
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute<void>(
                                   builder: (BuildContext context) => SuraScreen(
-                                      surah: controller.surahList,
+                                      surah: SurahHeadData.surahhead,
                                       index: index)),
                             );
                           },
                         ),
                         separatorBuilder: (context, index) =>
                             const Divider(height: 1),
-                        itemCount: controller.surahList.length,
+                        itemCount: SurahHeadData.surahhead.length,
                       );
-                
               },
             )));
   }

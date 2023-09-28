@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:adhan_dart/adhan_dart.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:quran_app/modules/quran_read/view/quran_screen.dart';
@@ -150,7 +151,7 @@ class HomepageCubit extends Cubit<HomepageState> {
       remainMinute = (time!.inMinutes % 60);
       remainHour = (((time!.inMinutes - remainMinute) / 60) - 2).ceil();
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 

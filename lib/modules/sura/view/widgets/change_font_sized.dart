@@ -36,7 +36,7 @@ class ChangeFontShape extends StatelessWidget {
                     ),
                     Slider.adaptive(
                       min: 18,
-                      max: 30,
+                      max: 40,
                       value: controller.size,
                       onChanged: (value) {
                         controller.changeSize(value);

@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/size_config.dart';
-import '../../../quran_read/model/surah.dart';
+ import '../../../quran_read/model/surah_head_model.dart';
 import '../sura_screen.dart';
 
 class SurahDrawer extends StatelessWidget {
   const SurahDrawer({super.key, required this.surah, required this.index});
-  final List<Surah> surah;
+  final List<QuranSurahModel>  surah;
   final int index;
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: Colors.white,
       child: Column(
         children: [
           Container(
@@ -42,7 +43,9 @@ class SurahDrawer extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: ListView.builder(
+            child: ListView.separated(
+              itemCount: surah.length,
+              separatorBuilder: (context, index) => Divider(color: AppColors.secandColor, thickness: 1.4,),
               itemBuilder: (context, i) => ListTile(
                 onTap: () {
                   Navigator.pushReplacement(
@@ -52,9 +55,21 @@ class SurahDrawer extends StatelessWidget {
                             SuraScreen(surah: surah, index: i),
                       ));
                 },
-                trailing: Text(
-                  surah[i].arabicName,
-                  style: TextStyle(fontSize: getFont(24), fontFamily: "quran"),
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      surah[i].nameAr,
+                      style: TextStyle(fontSize: getFont(24), fontFamily: "quran",)
+                      ,textAlign: TextAlign.right,
+textDirection: TextDirection.rtl,
+                    ),  const SizedBox(height: 7,), Text(
+                      surah[i].nameEn,
+                      style: TextStyle(fontSize: getFont(24), fontFamily: "quran"),
+                   textAlign: TextAlign.left,
+textDirection: TextDirection.ltr,
+                    ),
+                  ],
                 ),
                 leading: CircleAvatar(
                   child: Text(

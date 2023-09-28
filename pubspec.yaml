@@ -39,7 +39,6 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: null
-  flutter_getit: null
   flutter_qiblah: null
   flutter_svg: null
   fluttertoast: null
@@ -50,8 +49,7 @@ dependencies:
   hive: 
   hive_flutter: 
   intl: null
-  just_audio: null
-  quran: null
+  just_audio: null 
   shared_preferences: null
   shimmer: null
 
@@ -77,7 +75,6 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - assets/json/
     - assets/images/
     - assets/fonts/
   # An image asset can refer to one or more resolution-specific "variants", see

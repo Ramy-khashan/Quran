@@ -24,7 +24,6 @@ class ViewQuranListCubit extends Cubit<ViewQuranListState> {
       String num = "";
       List.generate(3 - surahItem.id.toString().length, (index) => num += "0");
       num += "${surahItem.id}.mp3";
-      print(num);
       surah.add(SurahModel(name: surahItem.arabicName, url: num));
     }
     emit(GetSurahNameState());

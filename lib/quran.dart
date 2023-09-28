@@ -5,6 +5,8 @@ import 'package:quran_app/core/api/dio_consumer.dart';
 import 'package:quran_app/core/repository/azkar/azkar_repository_impl.dart';
 import 'package:quran_app/core/utils/service_locator.dart';
 import 'package:quran_app/modules/azkar/model/azkar_model.dart';
+import 'package:quran_app/modules/quran_read/model/quran_model.dart';
+import 'core/repository/quran_head_line/quran_impl.dart';
 import 'modules/home_page/cubit/homepage_cubit.dart';
 
 import 'config/change_theme/changetheme_cubit.dart';
@@ -25,13 +27,13 @@ class _QuranAppState extends State<QuranApp> {
   void initState() {
     super.initState();
     QuranApp.navigatorKey = GlobalKey<NavigatorState>();
+    getQuran();
     getAndSaveLocalData();
   }
 
   getAndSaveLocalData() async {
     var azkar = Hive.box<List<AzkarModel>>(AppString.azkarHiveBox);
-    print(azkar.length);
-
+ 
     if (azkar.length < 1) {
       for (int i = 1; i <= 132; i++) {
         if (i == 126) {
@@ -59,10 +61,21 @@ class _QuranAppState extends State<QuranApp> {
         }
       }
     }
-    print(azkar.length);
-
+ 
     await azkar.close();
     await Hive.openBox(AppString.azkarHiveBox);
+  }
+
+  getQuran() async {
+    var quran = Hive.box<List<QuranModel>>(AppString.quranHiveBox);
+    if (quran.length < 1) {
+      for (int i = 1; i <= 114; i++) {
+        List<QuranModel> quranSurah = await QuranImpl().getQuran(i);
+        quran.add(quranSurah);
+      }
+    }
+     await quran.close();
+    await Hive.openBox(AppString.quranHiveBox);
   }
 
   @override

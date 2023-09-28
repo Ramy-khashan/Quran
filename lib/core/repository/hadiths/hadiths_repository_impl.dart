@@ -17,11 +17,10 @@ class HadithsRepositoryImpl implements HadithsRepository {
   @override
   Future<Either<ServerException, List<HadithsModel>>> hadiths() async {
     try {
-      print("lol");
+     
       hadith = [];
       final res = await dio.get("https://hadis-api-id.vercel.app/hadith");
-      print(res);
-      for (var element in List.from(res)) {
+     for (var element in List.from(res)) {
         hadith.add(HadithsModel.fromJson(element));
       }
       return right(hadith);

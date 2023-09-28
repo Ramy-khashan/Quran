@@ -3,8 +3,7 @@ import 'package:geolocator/geolocator.dart';
 Future<Position> determinePosition() async {
   bool serviceEnabled;
   LocationPermission permission;
-  print("Enter");
-await Geolocator.requestPermission();
+ await Geolocator.requestPermission();
 
   serviceEnabled = await Geolocator.isLocationServiceEnabled();
   if (!serviceEnabled) {

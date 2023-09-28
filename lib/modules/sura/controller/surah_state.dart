@@ -11,3 +11,5 @@ class SurahInitial extends SurahState {}
 class ChangeFontState extends SurahState {} 
 class ChangeShowFontState extends SurahState {}
 class GetFontSizeState extends SurahState {}
+class StartAudioState extends SurahState {}
+class PlayAudioState extends SurahState {}
