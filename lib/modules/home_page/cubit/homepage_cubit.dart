@@ -23,12 +23,7 @@ class HomepageCubit extends Cubit<HomepageState> {
   static HomepageCubit get(context) => BlocProvider.of(context);
   double? latuitde;
   double? longitude;
-  getTime() {
-    Timer.periodic(const Duration(minutes: 1), (timer) {
-      emit(ChangeTimeState());
-    });
-  }
-
+ 
   DateTime dateTime = DateTime.now();
   timeStream() {
     Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -41,15 +36,16 @@ class HomepageCubit extends Cubit<HomepageState> {
 
   Duration? time;
   getSavedLocation() async {
+    
     latuitde =
         double.parse(PreferenceUtils.getString(StorageKey.latuitde, "0"));
     longitude =
         double.parse(PreferenceUtils.getString(StorageKey.longitude, "0"));
-    getPrayTime();
+ 
   }
 
   getLocationAndPrayTime() async {
-    if (latuitde == null && longitude == null) {
+    if (latuitde == null && longitude == null||latuitde==0&&longitude==0) {
       await determinePosition().then((value) async {
         latuitde = value.latitude;
         longitude = value.longitude;
