@@ -68,14 +68,15 @@ class _QuranAppState extends State<QuranApp> {
 
   getQuran() async {
     var quran = Hive.box<List<QuranModel>>(AppString.quranHiveBox);
-    if (quran.length < 1) {
-      for (int i = 1; i <= 114; i++) {
+     if (quran.length != 144) {
+      for (int i = quran.length+1; i <= 114; i++) {
         List<QuranModel> quranSurah = await QuranImpl().getQuran(i);
         quran.add(quranSurah);
       }
-    }
-    await quran.close();
+         await quran.close();
     await Hive.openBox(AppString.quranHiveBox);
+    }
+ 
   }
 
   @override

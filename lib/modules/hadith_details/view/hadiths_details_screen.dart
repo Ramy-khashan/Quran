@@ -5,8 +5,9 @@ import 'package:quran_app/core/widgets/loading_item.dart';
 
 import '../../../core/repository/hadiths_details/hadiths_details_repository_impl.dart';
 import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/function/convert_to_arabic.dart';
 import '../../../core/utils/service_locator.dart';
-import '../../../core/utils/size_config.dart';
+import '../../../core/widgets/arrow_moving.dart';
 import '../controller/hadith_details_cubit.dart';
 
 class HadithsDetailsScreen extends StatelessWidget {
@@ -33,10 +34,10 @@ class HadithsDetailsScreen extends StatelessWidget {
           backgroundColor: AppColors.primaryColor,
           title: Text(
             camilCaseMethod(name),
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
-                fontSize: getFont(80),
+                fontSize: 70,
                 letterSpacing: 1.2,
                 fontFamily: "Aldhabi"),
           ),
@@ -51,56 +52,78 @@ class HadithsDetailsScreen extends StatelessWidget {
                     ? const Center(
                         child: Text("SomeThing went wrong, Try again later."),
                       )
-                    : Column(
+                    : Row(
                         children: [
                           Expanded(
-                            child: ListView.separated(
-                              physics: const BouncingScrollPhysics(),
-                              padding: const EdgeInsets.all(10),
-                              controller: controller.scroll,
-                              separatorBuilder: (context, index) => SizedBox(
-                                height: getHeight(20),
-                              ),
-                              itemBuilder: (context, index) => Container(
-                                padding: const EdgeInsets.all(12),
-                                decoration: BoxDecoration(
-                                    color: Colors.grey.shade100,
-                                    borderRadius: BorderRadius.circular(18),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                          color: Colors.grey,
-                                          spreadRadius: 0.5,
-                                          blurRadius: 6)
-                                    ]),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    CircleAvatar(
-                                      backgroundColor: AppColors.primaryColor,
-                                      child: Text(
-                                        controller.hadiths[index].number
-                                            .toString(),
-                                        style: const TextStyle(
-                                            color: Colors.white),
-                                      ),
+                            child: Stack(children: [
+                              PageView.builder(
+                                onPageChanged: (index)=>controller.getPageIndex(index),
+                                physics: const BouncingScrollPhysics(),
+                                controller: controller.pageController,
+                                itemBuilder: (context, index) => Container(
+                                  padding: const EdgeInsets.all(12),
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        CircleAvatar(
+                                          backgroundColor: AppColors
+                                              .primaryColor
+                                              .withOpacity(.7),
+                                          child: Text(
+                                            convertToArabic(controller
+                                                .hadiths[index].number
+                                                .toString()),
+                                            style: const TextStyle(
+                                                fontSize: 22,
+                                                color: Colors.white),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 7,
+                                        ),
+                                        SelectableText(
+                                          controller.hadiths[index].arab
+                                              .toString(),
+                                          textAlign: TextAlign.right,
+                                          style: const TextStyle(fontSize: 21),
+                                        ),
+                                      ],
                                     ),
-                                    const SizedBox(
-                                      height: 7,
-                                    ),
-                                    SelectableText(
-                                      controller.hadiths[index].arab.toString(),
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(fontSize: getFont(21)),
-                                    ),
-                                  ],
+                                  ),
                                 ),
+                                itemCount: controller.hadiths.length,
                               ),
-                              itemCount: controller.hadiths.length,
-                            ),
+                              ArrowMovingItem(
+                                width: controller.pageIndex != 0 ? 90 : 0,
+                                height: controller.pageIndex != 0 ? 90 : 0,
+                                isLeft: true,
+                                onTap: () {
+                                  controller.changePage(nextPage: false);
+                                },
+                              ),
+                              ArrowMovingItem(
+                                width: controller.pageIndex + 1 ==
+                                            controller.hadiths.length ||
+                                        controller.hadiths.length == 1
+                                    ? 0
+                                    : 90,
+                                height: controller.pageIndex + 1 ==
+                                            controller.hadiths.length ||
+                                        controller.hadiths.length == 1
+                                    ? 0
+                                    : 90,
+                                isLeft: false,
+                                onTap: () {
+                                  controller.changePage(nextPage: true);
+                                },
+                              ),
+                            ]),
                           ),
                           controller.isLaodingForMore
-                              ? LoadingItem()
-                              : SizedBox()
+                              ? const LoadingItem()
+                              : const SizedBox()
                         ],
                       );
           },

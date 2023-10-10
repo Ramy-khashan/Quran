@@ -1,3 +1,4 @@
+ 
 import 'dart:async';
 
 import 'package:adhan_dart/adhan_dart.dart';
@@ -5,15 +6,16 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:quran_app/modules/quran_read/view/quran_screen.dart';
+ import 'package:quran_app/modules/quran_read/view/quran_screen.dart';
 import '../../../core/utils/app_assets.dart';
 import '../../../core/utils/function/shared_preferance_utils.dart';
 import '../../../core/utils/storage_key.dart';
 
 import '../../../core/utils/function/get_location.dart';
+import '../../full_quran/view/full_quran_screen.dart';
 import '../../qiblah/view/qiblah_screen.dart';
 import '../../quran_sound/view/quran_soun_screen.dart';
-import '../model/feature_model.dart';
+ import '../model/feature_model.dart';
 import '../model/pray_time_model.dart';
 
 part 'homepage_state.dart';
@@ -23,7 +25,7 @@ class HomepageCubit extends Cubit<HomepageState> {
   static HomepageCubit get(context) => BlocProvider.of(context);
   double? latuitde;
   double? longitude;
- 
+
   DateTime dateTime = DateTime.now();
   timeStream() {
     Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -36,16 +38,15 @@ class HomepageCubit extends Cubit<HomepageState> {
 
   Duration? time;
   getSavedLocation() async {
-    
     latuitde =
         double.parse(PreferenceUtils.getString(StorageKey.latuitde, "0"));
     longitude =
         double.parse(PreferenceUtils.getString(StorageKey.longitude, "0"));
- 
   }
 
   getLocationAndPrayTime() async {
-    if (latuitde == null && longitude == null||latuitde==0&&longitude==0) {
+    if (latuitde == null && longitude == null ||
+        latuitde == 0 && longitude == 0) {
       await determinePosition().then((value) async {
         latuitde = value.latitude;
         longitude = value.longitude;
@@ -69,45 +70,40 @@ class HomepageCubit extends Cubit<HomepageState> {
     Coordinates coordinates = Coordinates(latuitde, longitude);
     CalculationParameters params = CalculationMethod.MuslimWorldLeague();
 
-    PrayerTimes prayerTimes =
-        PrayerTimes(coordinates, DateTime.now(), params, precision: true);
+    PrayerTimes prayerTimes = PrayerTimes(
+        coordinates, DateTime.now().toLocal(), params,
+        precision: true);
     prayerTimes.nextPrayer();
 
     prayTime = prayerTimes;
     prayTimeList = [
       PrayTimeModel(
-          time: DateFormat.jm()
+          time: DateFormat.jm("ar")
               .format(prayerTimes.fajr!.add(const Duration(hours: 3))),
           img: AppAssets.fajrImage,
-          prayTitle: "Fajr"),
+          prayTitle: "الفجر"),
       PrayTimeModel(
-          time: DateFormat.jm()
+          time: DateFormat.jm("ar")
               .format(prayerTimes.dhuhr!.add(const Duration(hours: 3))),
           img: AppAssets.dhuhrImage,
-          prayTitle: "Dhuhr"),
+          prayTitle: "الظهر"),
       PrayTimeModel(
-          time: DateFormat.jm()
+          time: DateFormat.jm("ar")
               .format(prayerTimes.asr!.add(const Duration(hours: 3))),
           img: AppAssets.asrImage,
-          prayTitle: "Asr"),
+          prayTitle: "العصر"),
       PrayTimeModel(
-          time: DateFormat.jm()
+          time: DateFormat.jm("ar")
               .format(prayerTimes.maghrib!.add(const Duration(hours: 3))),
           img: AppAssets.maghribImage,
-          prayTitle: "Maghrib"),
+          prayTitle: "المغرب"),
       PrayTimeModel(
-          time: DateFormat.jm()
+          time: DateFormat.jm("ar")
               .format(prayerTimes.isha!.add(const Duration(hours: 3))),
           img: AppAssets.ishaImage,
-          prayTitle: "Isha"),
+          prayTitle: "العشاء"),
     ];
-    // final dio = Dio();
-    // //http://api.aladhan.com/v1/timings/${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}?latitude=$latuitde&longitude=$longitude&method=2
-    // dio.interceptors.add(HttpFormatter());
-    // final response = await dio.get(
-    //     "http://api.aladhan.com/v1/timings/${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}?latitude=$latuitde&longitude=$longitude&method=2"
-    //     // "http://api.aladhan.com/v1/calendar/${DateTime.now().year}/${DateTime.now().month}?latitude=$latuitde&longitude=$longitude&method=2",
-    //     );
+
     nextPray();
     isLoading = false;
     emit(GetPrayTimeState());
@@ -156,12 +152,26 @@ class HomepageCubit extends Cubit<HomepageState> {
   String pray = "";
 
   List<FeatureModel> feature = [
-    FeatureModel(name: "Quran", image: "quran.png", page: const QuranScreen()),
     FeatureModel(
-        name: "Quran Voice",
-        image: "quran_voice.png",
-        page: const QuranSoundScreen()),
+      name: "القرأن",
+      image: "logo.png",
+      page: const FullQuranScreen(),
+    ),
     FeatureModel(
-        name: "Qibla", image: "qibla.png", page: const QiblahCompassScreen()),
+      name: "تعلم القرأن",
+      image: "quran.png",
+      page: const QuranScreen(),
+    ),
+    
+    FeatureModel(
+      name: "سماع القرأن",
+      image: "quran_voice.png",
+      page: const QuranSoundScreen(),
+    ),
+    FeatureModel(
+      name: "القبله",
+      image: "qibla.png",
+      page: const QiblahCompassScreen(),
+    ),
   ];
 }

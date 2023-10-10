@@ -49,8 +49,7 @@ class NoNetworkScreen extends StatelessWidget {
                     style: TextStyle(
                         fontSize: getFont(25),
                         fontWeight: FontWeight.w700,
-                        //TODO  add app color
-                        color: AppColors.primaryColor),
+                         color: AppColors.primaryColor),
                   ))
             ],
           ),

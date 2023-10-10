@@ -14,4 +14,12 @@ part of 'azkar_detailsl_cubit.dart';
   class StopAudioState extends AzkarDetailslState {}
   class StartAudioState extends AzkarDetailslState {}
   class PausedAudioState extends AzkarDetailslState {}
+  class SaveEnableEnState extends AzkarDetailslState {}
+  class GetEnableEnState extends AzkarDetailslState {}
+  class InitialIncreaseCounterState extends AzkarDetailslState {}
+  class IncreaseCounterState extends AzkarDetailslState {}
+  class GetPageIndex extends AzkarDetailslState {}
+  class InitialCounterValueState extends AzkarDetailslState {}
+ 
+ 
  

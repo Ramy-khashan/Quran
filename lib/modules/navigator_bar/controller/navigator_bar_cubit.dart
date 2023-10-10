@@ -5,8 +5,8 @@ import 'package:quran_app/modules/home_page/view/home_page_screen.dart';
 
 import '../../azkar/view/azkar_screen.dart';
 import '../../hadiths/view/hadiths_screen.dart';
-import '../../prayers/view/prayers_screen.dart';
-
+import '../../tasbih/view/tasbih_screen.dart';
+ 
 part 'navigator_bar_state.dart';
 
 class NavigatorBarCubit extends Cubit<NavigatorBarState> {
@@ -17,7 +17,7 @@ class NavigatorBarCubit extends Cubit<NavigatorBarState> {
     const HomePageScreen(),
     const HadithsScreen(),
     const AzkarScreen(),
-    const PrayersScreen(),
+    const TasbihScreen(),
   ];
   changePage(selectedPage) {
     emit(NavigatorBarInitial());

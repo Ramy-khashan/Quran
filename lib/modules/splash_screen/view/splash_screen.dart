@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:quran_app/core/utils/app_colors.dart';
 import 'package:quran_app/modules/navigator_bar/view/navigator_bar.dart';
 import '../../../core/utils/app_assets.dart';
 import '../../../core/utils/function/shared_preferance_utils.dart';
@@ -37,23 +36,11 @@ class _SplashScreenState extends State<SplashScreen> {
     SizeConfig().init(context);
 
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-              AppColors.primaryColor.withOpacity(.6),
-              Colors.white,
-              Colors.white,
-              AppColors.primaryColor.withOpacity(.6),
-            ])),
-        child: Center(
-          child: Image.asset(
-            AppAssets.splash,
-            width: getWidth(300),
-            height: getHeight(300),
-          ),
+      body: Center(
+        child: Image.asset(
+          AppAssets.splash,
+          width: getWidth(370),
+          height: getHeight(370),
         ),
       ),
     );

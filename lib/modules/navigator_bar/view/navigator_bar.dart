@@ -12,58 +12,61 @@ class NavigatorBarScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return BlocProvider(
-      create: (context) => NavigatorBarCubit(),
-      child: BlocBuilder<NavigatorBarCubit, NavigatorBarState>(
-        builder: (context, state) {
-          final controller = NavigatorBarCubit.get(context);
-          return Scaffold(
-            body: controller.pages[controller.selectedIndex],
-            bottomNavigationBar: BottomNavigationBar(
-              fixedColor: AppColors.primaryColor,
-              unselectedLabelStyle:
-                  const TextStyle(fontWeight: FontWeight.w500, fontSize: 14, color: Color.fromARGB(255, 224, 224, 224),  fontFamily:"head",),
-              selectedLabelStyle:
-                  const TextStyle(fontWeight: FontWeight.w700, fontSize: 15,  color: AppColors.primaryColor, fontFamily:"head",),
-              items: [
-                BottomNavigationBarItem(
-                    icon: Image.asset(
-                      "assets/images/mosque-icon.png",
-                      cacheWidth: 50,
-                      color: AppColors.primaryColor,
-                      cacheHeight: 50,
-                    ),
-                    label: "Home "),
-                BottomNavigationBarItem(
-                    icon: Image.asset(
-                      "assets/images/hadiths.png",
-                      cacheWidth:50,
-                      cacheHeight: 50,
-                    ),
-                    label: "Hadiths"),  BottomNavigationBarItem(
-                    icon: Image.asset(
-                      "assets/images/azkar.png",
-                      cacheWidth:50, 
-
-                      cacheHeight: 50,
-                    ),
-                    label: "Azkar"),
-                BottomNavigationBarItem(
-                    icon: Image.asset(
-                      "assets/images/prayer.png",
-                      cacheWidth: 50,
-                      color: AppColors.primaryColor,
-                      cacheHeight: 50,
-                    ),
-                    label: "Tasbih"),
-              ],
-              currentIndex: controller.selectedIndex,
-              onTap: (value) {
-                controller.changePage(value);
-              },
-            ),
-          );
-        },
+        create: (context) => NavigatorBarCubit(),
+        child: BlocBuilder<NavigatorBarCubit, NavigatorBarState>(
+          builder: (context, state) {
+    final controller = NavigatorBarCubit.get(context);
+    return Scaffold(
+      body: controller.pages[controller.selectedIndex],
+      bottomNavigationBar: Directionality(
+        textDirection: TextDirection.rtl,
+        child: BottomNavigationBar(
+          fixedColor: AppColors.primaryColor,
+          unselectedLabelStyle:
+              const TextStyle(fontWeight: FontWeight.w500, fontSize: 14, color: Color.fromARGB(255, 224, 224, 224),  fontFamily:"head",),
+          selectedLabelStyle:
+              const TextStyle(fontWeight: FontWeight.w700, fontSize: 15,  color: AppColors.primaryColor, fontFamily:"head",),
+          items: [
+            BottomNavigationBarItem(
+                icon: Image.asset(
+                  "assets/images/mosque-icon.png",
+                  cacheWidth: 50,
+                  color: AppColors.primaryColor,
+                  cacheHeight: 50,
+                ),
+                label: "الصفحة الرئيسية"),
+            BottomNavigationBarItem(
+                icon: Image.asset(
+                  "assets/images/hadiths.png",
+                  cacheWidth:50,
+                  cacheHeight: 50,
+                ),
+                label: "الأحاديث"),  BottomNavigationBarItem(
+                icon: Image.asset(
+                  "assets/images/azkar.png",
+                  cacheWidth:50, 
+          
+                  cacheHeight: 50,
+                ),
+                label: "الأذكار"),
+            BottomNavigationBarItem(
+                icon: Image.asset(
+                  "assets/images/prayer.png",
+                  cacheWidth: 50,
+                  color: AppColors.primaryColor,
+                  cacheHeight: 50,
+                ),
+                label: "التسابيح"),
+          ],
+          currentIndex: controller.selectedIndex,
+          onTap: (value) {
+            controller.changePage(value);
+          },
+        ),
       ),
     );
+          },
+        ),
+      );
   }
 }

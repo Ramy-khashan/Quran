@@ -17,6 +17,8 @@ class QuranModelAdapter extends TypeAdapter<QuranModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return QuranModel(
+      tafser: fields[4] as String,
+      audioFile: fields[3] as String,
       textAr: fields[0] as String,
       textEn: fields[1] as String,
       audio: fields[2] as String,
@@ -26,13 +28,17 @@ class QuranModelAdapter extends TypeAdapter<QuranModel> {
   @override
   void write(BinaryWriter writer, QuranModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.textAr)
       ..writeByte(1)
       ..write(obj.textEn)
       ..writeByte(2)
-      ..write(obj.audio);
+      ..write(obj.audio)
+      ..writeByte(3)
+      ..write(obj.audioFile)
+      ..writeByte(4)
+      ..write(obj.tafser);
   }
 
   @override

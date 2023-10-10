@@ -41,6 +41,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.2"
+  animated_flip_counter:
+    dependency: "direct main"
+    description:
+      name: animated_flip_counter
+      sha256: "2c25ace054ac3932a3f203875a90ddae760ba7016cb9233573067a12ae51e3c6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.6"
   args:
     dependency: transitive
     description:
@@ -57,6 +65,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
+  audio_service:
+    dependency: transitive
+    description:
+      name: audio_service
+      sha256: a4d989f1225ea9621898d60f23236dcbfc04876fa316086c23c5c4af075dbac4
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.18.12"
+  audio_service_platform_interface:
+    dependency: transitive
+    description:
+      name: audio_service_platform_interface
+      sha256: "8431a455dac9916cc9ee6f7da5620a666436345c906ad2ebb7fa41d18b3c1bf4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.1"
+  audio_service_web:
+    dependency: transitive
+    description:
+      name: audio_service_web
+      sha256: "523e64ddc914c714d53eec2da85bba1074f08cf26c786d4efb322de510815ea7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.1"
   audio_session:
     dependency: transitive
     description:
@@ -624,6 +656,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.9.35"
+  just_audio_background:
+    dependency: "direct main"
+    description:
+      name: just_audio_background
+      sha256: d290c9c450083aee40cc481e2cb4c088dcbca35961598970ea1b6a6f6c68ae13
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1-beta.10"
   just_audio_platform_interface:
     dependency: transitive
     description:
@@ -840,6 +880,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
+  quran:
+    dependency: "direct main"
+    description:
+      name: quran
+      sha256: b52ceeae1083a856a3eaacbbfbdd493e41789970b6d9bee61c6d968fc326d947
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.2"
   rxdart:
     dependency: transitive
     description:

@@ -7,8 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
  import 'package:geolocator/geolocator.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/camil_case.dart';
-import '../../../core/utils/size_config.dart';
-import '../../../core/widgets/loading_item.dart';
+ import '../../../core/widgets/loading_item.dart';
 
 import 'widgets/locatin_error_shape.dart';
 
@@ -46,10 +45,10 @@ class _QiblahCompassScreenState extends State<QiblahCompassScreen> {
           backgroundColor: AppColors.primaryColor,
           title: Text(
             camilCaseMethod("Qibla"),
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
-                fontSize: getFont(80),
+                fontSize: 70,
                 letterSpacing: 1.2,
                 fontFamily: "Aldhabi"),
           ),

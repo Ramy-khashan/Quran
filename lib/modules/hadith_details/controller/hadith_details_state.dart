@@ -12,3 +12,4 @@ final class LoadingHadithsDetailsState extends HadithDetailsState {}
 final class GetHadithsDetailsState extends HadithDetailsState {}
 final class LoadMoreLoadidngHadithsDetailsState extends HadithDetailsState {}
 final class LoadMoreGetHadithsDetailsState extends HadithDetailsState {}
+ final class GetPageIndex extends HadithDetailsState {}

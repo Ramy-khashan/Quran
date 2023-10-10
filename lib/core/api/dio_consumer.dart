@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
-import 'package:dio_http_formatter/dio_http_formatter.dart';
-import 'package:flutter/foundation.dart';
+// import 'package:dio_http_formatter/dio_http_formatter.dart';
+// import 'package:flutter/foundation.dart';
 import 'status_code.dart';
 import 'api_consumer.dart'; 
 import 'exceptions.dart';
@@ -26,11 +26,11 @@ class DioConsumer implements ApiConsumer {
         return status! < StatusCode.internalServerError;
       };
 
-    if (kDebugMode) {
-      client.interceptors.addAll([
-        HttpFormatter(),
-      ]);
-    }
+    // if (kDebugMode) {
+    //   client.interceptors.addAll([
+    //     HttpFormatter(),
+    //   ]);
+    // }
   }
 
   @override

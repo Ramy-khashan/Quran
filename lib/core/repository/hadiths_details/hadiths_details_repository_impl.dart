@@ -20,7 +20,7 @@ class HadithsDetailsRepositoryImpl implements HadithsDetailsRepository {
     try {
       hadiths = [];
       final res = await dio.get(
-          "https://hadis-api-id.vercel.app/hadith/${name}?page=${page}&limit=${limit}");
+          "https://hadis-api-id.vercel.app/hadith/$name?page=$page&limit=$limit");
       
       for (var element in List.from(res["items"])) {
         hadiths.add(HadithsDetailsModel.fromJson(element));

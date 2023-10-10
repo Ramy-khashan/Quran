@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:quran_app/core/data/azkar_data.dart';
+import 'package:quran_app/core/utils/function/convert_to_arabic.dart';
 
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/camil_case.dart';
-import '../../../core/utils/size_config.dart';
-import '../../azkar_details/view/azkar_detailsl_screen.dart';
+ import '../../azkar_details/view/azkar_detailsl_screen.dart';
 
 class AzkarScreen extends StatelessWidget {
   const AzkarScreen({super.key});
@@ -12,57 +12,73 @@ class AzkarScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: AppColors.primaryColor,
           title: Text(
-            camilCaseMethod("Azkar"),
-            style: TextStyle(
+            camilCaseMethod("الأذكار"),
+            style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
-                fontSize: getFont(80),
+                fontSize:  70 ,
                 letterSpacing: 1.2,
                 fontFamily: "Aldhabi"),
           ),
           centerTitle: true,
         ),
         body: ListView.separated(
+            padding: const EdgeInsets.all(3),
             physics: const BouncingScrollPhysics(),
             separatorBuilder: (context, index) => const SizedBox(
                   height: 5,
                 ),
             itemBuilder: (context, index) {
               return Card(
+                elevation: 0,
                 clipBehavior: Clip.antiAliasWithSaveLayer,
-                color: Colors.grey.shade200,
+                color: index % 2 == 0
+                    ? Colors.grey.shade200
+                    : AppColors.primaryColor.withOpacity(.7),
                 child: ListTile(
                   contentPadding:
                       const EdgeInsets.symmetric(vertical: 11, horizontal: 8),
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AzkarDetailsScreen(
-                            id: AzkarData.azkarData[index].id,
-                            title: AzkarData.azkarData[index].title,
-                          ),
-                        ));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AzkarDetailsScreen(
+                          id: AzkarData.azkarData[index].id,
+                          title: AzkarData.azkarData[index].title,
+                        ),
+                      ),
+                    );
                   },
                   leading: CircleAvatar(
-                    backgroundColor: AppColors.primaryColor,
+                    backgroundColor: index % 2 == 0
+                        ? AppColors.primaryColor.withOpacity(.7)
+                        : Colors.grey.shade200,
                     child: Text(
-                      (AzkarData.azkarData[index].id).toString(),
-                      style: const TextStyle(color: Colors.white),
+                      convertToArabic(
+                          (AzkarData.azkarData[index].id).toString()),
+                      style: TextStyle(
+                          color: index % 2 == 0 ? Colors.white : Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
                     ),
                   ),
                   title: Text(
                     AzkarData.azkarData[index].title,
                     textAlign: TextAlign.right,
-                    style: const TextStyle(
-                        fontSize: 22,
+                    style: TextStyle(
+                        color: index % 2 == 0 ? Colors.black : Colors.white,
+                        fontSize: 25,
                         fontWeight: FontWeight.w600,
                         fontFamily: "quran"),
                   ),
-                  trailing: const Icon(Icons.arrow_forward_ios_rounded),
+                  trailing: Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: index % 2 == 0 ? Colors.black : Colors.white,
+                  ),
                 ),
               );
             },

@@ -30,12 +30,12 @@ class QuranSoundScreen extends StatelessWidget {
                     color: Colors.white,
                   )),
               backgroundColor: AppColors.primaryColor,
-              title: Text(
-                "Quran",
+              title: const Text(
+                "قرأن",
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w500,
-                    fontSize: getFont(80),
+                    fontSize:70,
                     letterSpacing: 1.2,
                     fontFamily: "Aldhabi"),
               ),

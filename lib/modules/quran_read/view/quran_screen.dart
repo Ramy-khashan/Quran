@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/data/surah_head_data.dart';
 import '../../../core/utils/app_colors.dart';
-import '../../../core/utils/size_config.dart';
-import '../../sura/view/sura_screen.dart';
+ import '../../sura/view/sura_screen.dart';
 
 import '../controller/quran_reading_cubit.dart';
 
@@ -13,7 +12,7 @@ class QuranScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => QuranReadingCubit() ,
+        create: (context) => QuranReadingCubit(),
         child: Scaffold(
             appBar: AppBar(
               leading: IconButton(
@@ -25,12 +24,12 @@ class QuranScreen extends StatelessWidget {
                     color: Colors.white,
                   )),
               backgroundColor: AppColors.primaryColor,
-              title: Text(
-                "Quran",
+              title: const Text(
+                "قرأن",
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w500,
-                    fontSize: getFont(80),
+                    fontSize: 70,
                     letterSpacing: 1.2,
                     fontFamily: "Aldhabi"),
               ),
@@ -38,41 +37,47 @@ class QuranScreen extends StatelessWidget {
             ),
             body: BlocBuilder<QuranReadingCubit, QuranReadingState>(
               builder: (context, state) {
-                 return   ListView.separated(
-                        itemBuilder: (context, index) => ListTile(
-                          leading:  
-                                Image.asset(SurahHeadData.surahhead[index].revelationType=="Meccan"?"assets/images/meccan.png":"assets/images/medinan.png",cacheHeight: 30,cacheWidth: 30,) ,
-                           
-                          title: Column(crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Text(
-                                SurahHeadData.surahhead[index].nameAr,
-                                textAlign: TextAlign.right,
-                                textDirection: TextDirection.rtl,
-                                style: const TextStyle(fontSize: 20,fontFamily: "quran"),
-                              ),
-                              Text(
-                                SurahHeadData.surahhead[index].nameEn,
-                                textAlign: TextAlign.left,
-                                textDirection: TextDirection.ltr,
-                                style: const TextStyle(fontSize: 20,fontFamily: "head"),
-                              ),
-                            ],
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute<void>(
-                                  builder: (BuildContext context) => SuraScreen(
-                                      surah: SurahHeadData.surahhead,
-                                      index: index)),
-                            );
-                          },
+                return ListView.separated(
+                  itemBuilder: (context, index) => ListTile(
+                    leading: Image.asset(
+                      SurahHeadData.surahhead[index].revelationType == "Meccan"
+                          ? "assets/images/meccan.png"
+                          : "assets/images/medinan.png",
+                      cacheHeight: 30,
+                      cacheWidth: 30,
+                    ),
+                    title: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          SurahHeadData.surahhead[index].nameAr,
+                          textAlign: TextAlign.right,
+                          textDirection: TextDirection.rtl,
+                          style: const TextStyle(
+                              fontSize: 20, fontFamily: "quran"),
                         ),
-                        separatorBuilder: (context, index) =>
-                            const Divider(height: 1),
-                        itemCount: SurahHeadData.surahhead.length,
+                        Text(
+                          SurahHeadData.surahhead[index].nameEn,
+                          textAlign: TextAlign.left,
+                          textDirection: TextDirection.ltr,
+                          style:
+                              const TextStyle(fontSize: 20, fontFamily: "head"),
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                            builder: (BuildContext context) => SuraScreen(
+                                surah: SurahHeadData.surahhead, index: index)),
                       );
+                    },
+                  ),
+                  separatorBuilder: (context, index) =>
+                      const Divider(height: 1),
+                  itemCount: SurahHeadData.surahhead.length,
+                );
               },
             )));
   }

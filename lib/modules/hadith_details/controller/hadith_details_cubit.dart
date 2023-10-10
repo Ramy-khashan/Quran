@@ -10,18 +10,19 @@ part 'hadith_details_state.dart';
 class HadithDetailsCubit extends Cubit<HadithDetailsState> {
   HadithDetailsCubit(this.hadithsDetailsRepositoryImpl)
       : super(HadithDetailsInitial()) {
-    scroll.addListener(loadMore);
+    pageController.addListener(loadMore);
   }
 
   static HadithDetailsCubit get(context) => BlocProvider.of(context);
   final HadithsDetailsRepositoryImpl hadithsDetailsRepositoryImpl;
-  ScrollController scroll = ScrollController();
-  int page = 1;
+   int page = 1;
   int limit = 50;
   String slug = '';
   List<HadithsDetailsModel> hadiths = [];
   bool isFaild = false;
   bool isLoading = false;
+    PageController pageController = PageController();
+    int pageIndex = 0;
   getHadithsDetails({required String slug}) async {
     isLoading = true;
     emit(LoadingHadithsDetailsState());
@@ -39,7 +40,7 @@ class HadithDetailsCubit extends Cubit<HadithDetailsState> {
 
   bool isLaodingForMore = false;
   loadMore() async {
-    if(scroll.position.pixels==scroll.position.maxScrollExtent){
+    if(pageController.position.pixels==pageController.position.maxScrollExtent){
     isLaodingForMore = true;
     emit(LoadMoreLoadidngHadithsDetailsState());
     page++; 
@@ -53,4 +54,23 @@ class HadithDetailsCubit extends Cubit<HadithDetailsState> {
     isLaodingForMore = false;
     emit(LoadMoreGetHadithsDetailsState());
       }  }
+      
+  changePage({required bool nextPage}) {
+    if (nextPage) {
+      pageController.nextPage(
+          duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+    } else {
+      pageController.previousPage(
+          duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+    }
+  }
+
+ 
+  getPageIndex(index) {
+    emit(HadithDetailsInitial());
+
+    pageIndex = index;
+    emit(GetPageIndex());
+  }
+
 }

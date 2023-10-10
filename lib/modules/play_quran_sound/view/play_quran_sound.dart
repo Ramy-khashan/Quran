@@ -44,7 +44,7 @@ class PlayQuranSoundScreen extends StatelessWidget {
                   )),
               backgroundColor: AppColors.primaryColor,
               title: Text(
-               "سورة "+ surahs[controller.index].name,
+               "سورة ${surahs[controller.index].name}",
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w500,

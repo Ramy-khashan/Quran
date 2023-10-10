@@ -11,20 +11,20 @@ class OnboardingCubit extends Cubit<OnboardingState> {
   List<OnBoardingModel> onboardingItem = [
     OnBoardingModel(
         image: "logo.png",
-        title: "Quran",
+        title: "قرأن",
         description: "Can read and hear quran with many voices."),
     OnBoardingModel(
         image: "hadiths.png",
-        title: "Hadiths",
+        title: "الأحاديث",
         description: "With 9 sheikh you can read all hadiths."),
     OnBoardingModel(
         image: "azkar.png",
-        title: "Azkar",
+        title: "الأذكار",
         description:
             "Azkar with all type provided with voice and with differant language ( English - Arabic )"),
     OnBoardingModel(
         image: "prayer.png",
-        title: "Tasbih",
+        title: "التسابيح",
         description:
             "Tasbih zikr Allah with counting to fulfill your daily zikr"),
   ];

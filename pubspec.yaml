@@ -29,6 +29,8 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   adhan_dart: null
+  alarm: null
+  animated_flip_counter: ^0.2.6
   audio_video_progress_bar: null
   cached_network_image: null
   cupertino_icons: null
@@ -46,20 +48,21 @@ dependencies:
   geolocator: null
   get_it: null
   hijri: null
-  hive:
-  hive_flutter:
+  hive: null
+  hive_flutter: null
   intl: null
   just_audio: null
+  just_audio_background: ^0.0.1-beta.10
+  quran: ^1.2.2
   shared_preferences: null
   shimmer: null
-  workmanager:
-  alarm:
+  workmanager: null
 dev_dependencies:
+  build_runner: null
   flutter_lints: ^2.0.0
-  hive_generator:
-  build_runner:
   flutter_test:
     sdk: flutter
+  hive_generator: null
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -76,6 +79,8 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/images/
+    - assets/images/quran_image/
+    - assets/json/
     - assets/fonts/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

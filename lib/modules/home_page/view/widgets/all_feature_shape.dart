@@ -44,10 +44,10 @@ class AllFeaturesShape extends StatelessWidget {
         InkWell(
           borderRadius: BorderRadius.circular(15),
           onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const QuranSoundScreen() ,));},
-          child: Column(
+          child: const Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
+            children: [
               Card(
                 color: AppColors.primaryColor,
                 child: Padding(
@@ -70,10 +70,10 @@ class AllFeaturesShape extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
           onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const QiblahCompassScreen() ,));},
         
-          child: Column(
+          child: const Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
+            children: [
               Card(
                 color: AppColors.primaryColor,
                 child: Padding(
@@ -92,10 +92,10 @@ class AllFeaturesShape extends StatelessWidget {
             ],
           ),
         ),
-        Column(
+        const Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: const [
+          children: [
             Card(
               color: AppColors.primaryColor,
               child: Padding(
