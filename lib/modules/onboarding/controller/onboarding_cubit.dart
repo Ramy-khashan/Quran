@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/utils/function/convert_to_arabic.dart';
 import '../model/onboarding_model.dart';
 
 part 'onboarding_state.dart';
@@ -12,21 +13,21 @@ class OnboardingCubit extends Cubit<OnboardingState> {
     OnBoardingModel(
         image: "logo.png",
         title: "قرأن",
-        description: "Can read and hear quran with many voices."),
+        description: "القرأن وتعلم القران مع التفسير وسماع لاكثر من ${convertToArabic(100.toString())} شيخ"),
     OnBoardingModel(
         image: "hadiths.png",
         title: "الأحاديث",
-        description: "With 9 sheikh you can read all hadiths."),
+        description: "جميع الأحاديث لأكثر من ${convertToArabic(8.toString())} علماء"),
     OnBoardingModel(
         image: "azkar.png",
         title: "الأذكار",
         description:
-            "Azkar with all type provided with voice and with differant language ( English - Arabic )"),
+            "لذكر الله والحفاظ عليها يوميا باللغه العربيه والأنجليزيه"),
     OnBoardingModel(
         image: "prayer.png",
         title: "التسابيح",
         description:
-            "Tasbih zikr Allah with counting to fulfill your daily zikr"),
+            "التسابيح يمكن التسبيح الله باستخدام المسبحه الأكترونييه الخاصه بنا والحفاظ علي التسبيح يومياً"),
   ];
   int selectedPage = 0;
   getPageNumber(index) {

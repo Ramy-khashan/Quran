@@ -1,23 +1,19 @@
- 
 import 'dart:async';
-
 import 'package:adhan_dart/adhan_dart.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
- import 'package:quran_app/modules/quran_read/view/quran_screen.dart';
+import 'package:quran_app/modules/quran_read/view/quran_screen.dart';
 import '../../../core/utils/app_assets.dart';
 import '../../../core/utils/function/shared_preferance_utils.dart';
 import '../../../core/utils/storage_key.dart';
-
 import '../../../core/utils/function/get_location.dart';
 import '../../full_quran/view/full_quran_screen.dart';
 import '../../qiblah/view/qiblah_screen.dart';
 import '../../quran_sound/view/quran_soun_screen.dart';
- import '../model/feature_model.dart';
+import '../model/feature_model.dart';
 import '../model/pray_time_model.dart';
-
 part 'homepage_state.dart';
 
 class HomepageCubit extends Cubit<HomepageState> {
@@ -42,6 +38,17 @@ class HomepageCubit extends Cubit<HomepageState> {
         double.parse(PreferenceUtils.getString(StorageKey.latuitde, "0"));
     longitude =
         double.parse(PreferenceUtils.getString(StorageKey.longitude, "0"));
+  }
+
+  updateLoation() async {
+    await determinePosition().then((value) async {
+      latuitde = value.latitude;
+      longitude = value.longitude;
+      await getPrayTime();
+      await PreferenceUtils.setString(StorageKey.latuitde, latuitde.toString());
+      await PreferenceUtils.setString(
+          StorageKey.longitude, longitude.toString());
+    });
   }
 
   getLocationAndPrayTime() async {
@@ -104,7 +111,7 @@ class HomepageCubit extends Cubit<HomepageState> {
           prayTitle: "العشاء"),
     ];
 
-    nextPray();
+    // nextPray();
     isLoading = false;
     emit(GetPrayTimeState());
   }
@@ -162,7 +169,6 @@ class HomepageCubit extends Cubit<HomepageState> {
       image: "quran.png",
       page: const QuranScreen(),
     ),
-    
     FeatureModel(
       name: "سماع القرأن",
       image: "quran_voice.png",

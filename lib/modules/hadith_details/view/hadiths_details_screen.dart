@@ -96,29 +96,29 @@ class HadithsDetailsScreen extends StatelessWidget {
                                 itemCount: controller.hadiths.length,
                               ),
                               ArrowMovingItem(
-                                width: controller.pageIndex != 0 ? 90 : 0,
-                                height: controller.pageIndex != 0 ? 90 : 0,
+                                width: controller.pageIndex + 1 ==
+                                            controller.hadiths.length ||
+                                        controller.hadiths.length == 1
+                                    ? 0
+                                    : 70,
+                                height: controller.pageIndex + 1 ==
+                                            controller.hadiths.length ||
+                                        controller.hadiths.length == 1
+                                    ? 0
+                                    : 70,
+                                isLeft: false,
+                                onTap: () {
+                                  controller.changePage(nextPage: true);
+                                },
+                              ), ArrowMovingItem(
+                                width: controller.pageIndex != 0 ? 70 : 0,
+                                height: controller.pageIndex != 0 ? 70 : 0,
                                 isLeft: true,
                                 onTap: () {
                                   controller.changePage(nextPage: false);
                                 },
                               ),
-                              ArrowMovingItem(
-                                width: controller.pageIndex + 1 ==
-                                            controller.hadiths.length ||
-                                        controller.hadiths.length == 1
-                                    ? 0
-                                    : 90,
-                                height: controller.pageIndex + 1 ==
-                                            controller.hadiths.length ||
-                                        controller.hadiths.length == 1
-                                    ? 0
-                                    : 90,
-                                isLeft: false,
-                                onTap: () {
-                                  controller.changePage(nextPage: true);
-                                },
-                              ),
+                             
                             ]),
                           ),
                           controller.isLaodingForMore

@@ -31,10 +31,9 @@ class OnBoardingScreen extends StatelessWidget {
                                       (route) => false);
               },
               child: const Text(
-                "Skip",
+                "تخطي",
                 style: TextStyle(
-                    fontSize: 27,
-                    fontFamily: "head",
+                    fontSize: 27, 
                     fontWeight: FontWeight.bold,
                     decoration: TextDecoration.underline,
                     color: AppColors.primaryColor),
@@ -148,11 +147,10 @@ class OnBoardingScreen extends StatelessWidget {
                                       (route) => false);
                                 },
                                 child: const Text(
-                                  "Get Started",
+                                  "بدأ التطبيق",
                                   style: TextStyle(
                                       fontSize: 25,
-                                      color: Colors.white,
-                                      fontFamily: "head",
+                                      color: Colors.white, 
                                       fontWeight: FontWeight.w500),
                                 ))
                             : const SizedBox.shrink()

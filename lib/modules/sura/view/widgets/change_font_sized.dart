@@ -44,7 +44,7 @@ class ChangeFontShape extends StatelessWidget {
                             activeColor: AppColors.secandColor,
                           ),
                           const Text(
-                            "الأنجلزي",
+                            "اللغه الأنجليزيه",
                             style: TextStyle(
                                 fontSize: 21, fontWeight: FontWeight.w500),
                           )

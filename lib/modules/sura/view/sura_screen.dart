@@ -27,6 +27,7 @@ class SuraScreen extends StatelessWidget {
         valueListenable: Hive.box(AppString.quranHiveBox).listenable(),
         builder: (context, box, child) {
           var quran = box.getAt(index);
+          
           return BlocProvider(
             create: (context) => SurahCubit()
               ..getFontSize()

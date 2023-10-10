@@ -4,7 +4,7 @@ import 'package:hijri/hijri_calendar.dart';
 import 'package:intl/intl.dart' as intl;
 import '../../../core/utils/app_assets.dart';
 import '../../../core/utils/app_colors.dart';
- import '../../../core/utils/size_config.dart';
+import '../../../core/utils/size_config.dart';
 import '../cubit/homepage_cubit.dart';
 
 class HomePageScreen extends StatelessWidget {
@@ -43,15 +43,18 @@ class HomePageScreen extends StatelessWidget {
                                 Row(
                                   children: [
                                     Text(
-                                      HijriCalendar.setLocal("ar").format( HijriCalendar.now().hYear,
-                                              HijriCalendar.now().hMonth,
-                                              HijriCalendar.now().hDay,  "dd MMMM yyyy") 
-                                          // .hDate(
-                                          //     HijriCalendar.now().hYear,
-                                          //     HijriCalendar.now().hMonth,
-                                          //     HijriCalendar.now().hDay),
-                                          // .toFormat("dd MMMM yyyy H"),
-                                      ,style: TextStyle(
+                                      HijriCalendar.setLocal("ar").format(
+                                          HijriCalendar.now().hYear,
+                                          HijriCalendar.now().hMonth,
+                                          HijriCalendar.now().hDay,
+                                          "dd MMMM yyyy")
+                                      // .hDate(
+                                      //     HijriCalendar.now().hYear,
+                                      //     HijriCalendar.now().hMonth,
+                                      //     HijriCalendar.now().hDay),
+                                      // .toFormat("dd MMMM yyyy H"),
+                                      ,
+                                      style: TextStyle(
                                           fontSize: getFont(27),
                                           fontWeight: FontWeight.bold,
                                           color: Colors.white),
@@ -62,9 +65,9 @@ class HomePageScreen extends StatelessWidget {
                                 Column(
                                   children: [
                                     Text(
-                                   intl.DateFormat.jm("ar")
+                                      intl.DateFormat.jm("ar")
                                           .format(controllere.dateTime)
-                                          .trim() ,
+                                          .trim(),
                                       style: TextStyle(
                                           fontSize: getFont(50),
                                           fontWeight: FontWeight.w900,
@@ -73,42 +76,67 @@ class HomePageScreen extends StatelessWidget {
                                   ],
                                 ),
                                 controllere.prayTime != null
-                                    ? Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: List.generate(
-                                            controllere.prayTimeList.length,
-                                            (index) => Column(
-                                                  children: [
-                                                    Text(
-                                                      controllere
-                                                          .prayTimeList[index]
-                                                          .prayTitle,
-                                                      style: const TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.white),
-                                                    ),
-                                                    Image.asset(
-                                                      controllere
-                                                          .prayTimeList[index]
-                                                          .img,
-                                                      color: Colors.white,
-                                                      width: 30,
-                                                      height: 30,
-                                                    ),
-                                                    Text(
-                                                   controllere
-                                                          .prayTimeList[index]
-                                                          .time 
-                                                          ,
-                                                      style: const TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.white),
-                                                    ),
-                                                  ],
-                                                )),
+                                    ? Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          CircleAvatar(
+                                              child: IconButton(
+                                                  onPressed: () async {
+                                                    await controllere
+                                                        .updateLoation();
+                                                  },
+                                                  icon: const Icon(
+                                                      Icons.update))),
+                                          const SizedBox(
+                                            height: 7,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: List.generate(
+                                                controllere.prayTimeList.length,
+                                                (index) => Column(
+                                                      children: [
+                                                        Text(
+                                                          controllere
+                                                              .prayTimeList[
+                                                                  index]
+                                                              .prayTitle,
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .white),
+                                                        ),
+                                                        Image.asset(
+                                                          controllere
+                                                              .prayTimeList[
+                                                                  index]
+                                                              .img,
+                                                          color: Colors.white,
+                                                          width: 30,
+                                                          height: 30,
+                                                        ),
+                                                        Text(
+                                                          controllere
+                                                              .prayTimeList[
+                                                                  index]
+                                                              .time,
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .white),
+                                                        ),
+                                                      ],
+                                                    )),
+                                          ),
+                                        ],
                                       )
                                     : Row(
                                         mainAxisSize: MainAxisSize.min,

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:quran_app/core/widgets/loading_item.dart';
 import 'package:quran_app/modules/azkar/model/azkar_model.dart';
 import 'package:quran_app/modules/quran_read/model/quran_model.dart';
 import 'package:workmanager/workmanager.dart';
@@ -19,44 +22,59 @@ void callbackDispatcher() {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-    await JustAudioBackground.init(
-    androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
-    androidNotificationChannelName: 'Audio playback',
-    androidNotificationOngoing: true,
-    androidShowNotificationBadge: true,preloadArtwork: true
-  );
+  await JustAudioBackground.init(
+      androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
+      androidNotificationChannelName: 'Audio playback',
+      androidNotificationOngoing: true,
+      androidShowNotificationBadge: true,
+      preloadArtwork: true);
   ErrorWidget.builder = (details) => MaterialApp(
-    debugShowCheckedModeBanner: false,
-    theme: ThemeData(useMaterial3: true),
-        home: Scaffold(
-          backgroundColor: const Color.fromARGB(255, 255, 196, 0),
-          body: Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.all(20),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.warning,
-                    color: Colors.white,
-                    size: 80,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    details.exception.toString(),
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 22),
-                  )
-                ],
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(useMaterial3: true),
+        home: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Scaffold(
+            appBar: AppBar(
+              leading: IconButton(
+                  onPressed: () {
+                    SystemNavigator.pop();
+                  },
+                  icon: const Icon(
+                    FontAwesomeIcons.arrowRight,
+                    color: Colors.black,
+                  )),
+            ),
+            body: Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(20),
+              child: const SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    LoadingItem(),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "جارٍ تحضير كافة الموارد، يرجى الانتظار لإكمال هذه العملية تستغرق بعض الوقت\nPreparing all resources, Please wait to compelet this process",
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+                    ),
+
+                    // Text(
+                    //   details.exception.toString(),
+                    //   textAlign: TextAlign.center,
+                    //   style: const TextStyle(fontSize: 22),
+                    // )
+                  ],
+                ),
               ),
             ),
           ),
         ),
       );
-  
+
   //  Workmanager().initialize(callbackDispatcher);
   await initializeDateFormatting("ar", null);
 
