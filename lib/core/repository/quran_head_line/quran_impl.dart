@@ -12,7 +12,7 @@ class QuranImpl {
     List dataEn = List.from(response["data"][1]["ayahs"]);
     for (int i = 0; i < dataAr.length; i++) {
       final tafser = await DioConsumer(client: Dio()).get(
-        "http://api.quran-tafseer.com/tafseer/1/${index}/${i+1}");
+        "http://api.quran-tafseer.com/tafseer/1/$index/${i+1}");
       quran.add(
         QuranModel(
             textAr: dataAr[i]["text"],

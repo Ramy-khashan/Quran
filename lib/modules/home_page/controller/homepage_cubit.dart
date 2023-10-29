@@ -41,7 +41,9 @@ class HomepageCubit extends Cubit<HomepageState> {
   }
 
   updateLoation() async {
+    
     await determinePosition().then((value) async {
+    
       latuitde = value.latitude;
       longitude = value.longitude;
       await getPrayTime();
@@ -86,27 +88,27 @@ class HomepageCubit extends Cubit<HomepageState> {
     prayTimeList = [
       PrayTimeModel(
           time: DateFormat.jm("ar")
-              .format(prayerTimes.fajr!.add(const Duration(hours: 3))),
+              .format(prayerTimes.fajr!.add(const Duration(hours: 2))),
           img: AppAssets.fajrImage,
           prayTitle: "الفجر"),
       PrayTimeModel(
           time: DateFormat.jm("ar")
-              .format(prayerTimes.dhuhr!.add(const Duration(hours: 3))),
+              .format(prayerTimes.dhuhr!.add(const Duration(hours: 2))),
           img: AppAssets.dhuhrImage,
           prayTitle: "الظهر"),
       PrayTimeModel(
           time: DateFormat.jm("ar")
-              .format(prayerTimes.asr!.add(const Duration(hours: 3))),
+              .format(prayerTimes.asr!.add(const Duration(hours: 2))),
           img: AppAssets.asrImage,
           prayTitle: "العصر"),
       PrayTimeModel(
           time: DateFormat.jm("ar")
-              .format(prayerTimes.maghrib!.add(const Duration(hours: 3))),
+              .format(prayerTimes.maghrib!.add(const Duration(hours: 2))),
           img: AppAssets.maghribImage,
           prayTitle: "المغرب"),
       PrayTimeModel(
           time: DateFormat.jm("ar")
-              .format(prayerTimes.isha!.add(const Duration(hours: 3))),
+              .format(prayerTimes.isha!.add(const Duration(hours: 2))),
           img: AppAssets.ishaImage,
           prayTitle: "العشاء"),
     ];

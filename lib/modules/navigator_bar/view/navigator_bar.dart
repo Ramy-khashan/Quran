@@ -56,7 +56,14 @@ class NavigatorBarScreen extends StatelessWidget {
                   color: AppColors.primaryColor,
                   cacheHeight: 50,
                 ),
-                label: "التسابيح"),
+                label: "التسابيح"),    BottomNavigationBarItem(
+                icon: Image.asset(
+                  "assets/images/setting.jpg",
+                  cacheWidth: 50,
+                  color: AppColors.primaryColor,
+                  cacheHeight: 50,
+                ),
+                label: "الأعدادات"),
           ],
           currentIndex: controller.selectedIndex,
           onTap: (value) {

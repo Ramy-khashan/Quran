@@ -16,7 +16,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.2+3
+version: 1.0.3+4
 
 environment:
   sdk: ">=3.1.0 <4.0.0"
@@ -29,7 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   adhan_dart: null
-  alarm: null
+  # alarm: ^1.2.2
   animated_flip_counter: ^0.2.6
   audio_video_progress_bar: null
   cached_network_image: null
@@ -44,18 +44,21 @@ dependencies:
   flutter_qiblah: null
   flutter_svg: null
   fluttertoast: null
+  flutter_local_notifications:
   font_awesome_flutter: null
-  geolocator: null
+  geolocator: null 
   get_it: null
   hijri: null
   hive: null
   hive_flutter: null
+ 
   intl: null
   just_audio: null
   just_audio_background: ^0.0.1-beta.10
   quran: ^1.2.2
   shared_preferences: null
   shimmer: null
+  permission_handler:
   workmanager: null
 dev_dependencies:
   build_runner: null
@@ -79,6 +82,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/images/
+    - assets/azan.mp3
     - assets/images/quran_image/
     - assets/json/
     - assets/fonts/

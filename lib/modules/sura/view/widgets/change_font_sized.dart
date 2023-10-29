@@ -71,9 +71,9 @@ class ChangeFontShape extends StatelessWidget {
                       ),
                       
                       ListTile(
-                        onTap: (){print("Download");}, 
-                          leading: Icon(FontAwesomeIcons.download),
-                          title: Text(
+                        onTap: (){}, 
+                          leading: const Icon(FontAwesomeIcons.download),
+                          title: const Text(
                             "تحميل السوره كامله",
                             style: TextStyle(
                                 fontSize: 21, fontWeight: FontWeight.w500),

@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 
 import '../../view_quran_list/model/surah_model.dart';
 import '../model/page_manager.dart';
@@ -9,7 +12,7 @@ import '../model/page_manager.dart';
 part 'play_quran_sound_state.dart';
 
 class PlayQuranSoundCubit extends Cubit<PlayQuranSoundState> {
-  PlayQuranSoundCubit() : super(PlayQuranSoundInitial());
+  PlayQuranSoundCubit() : super(PlayQuranSoundInitial())  ;
   static PlayQuranSoundCubit get(context) => BlocProvider.of(context);
 
   late int duration = 0;
@@ -19,10 +22,10 @@ class PlayQuranSoundCubit extends Cubit<PlayQuranSoundState> {
   String serverLink = "";
 
   List<SurahModel>? surahs;
-  late AudioPlayer audioPlayer;
+  AudioPlayer? audioPlayer;
   double volume = 100;
   String? audioUrl;
-  void init(
+  Future<void> init(
       {required String serverLink,
       required int index,
       required List<SurahModel> surahs}) async {
@@ -30,11 +33,20 @@ class PlayQuranSoundCubit extends Cubit<PlayQuranSoundState> {
       this.index = index;
       this.surahs = surahs;
       this.serverLink = serverLink;
-      audioPlayer = AudioPlayer();
+    audioPlayer = AudioPlayer();
+      await audioPlayer!.setAudioSource(AudioSource.uri(
+        Uri.parse((serverLink + surahs[index].url).toString().trim()),
+        tag: MediaItem(
+          id: Random().nextInt(10000).toString(),
+          title: surahs[index].name,
+          artUri: Uri.parse(
+              "https://firebasestorage.googleapis.com/v0/b/have-fun-a5c87.appspot.com/o/showImage%2Fic_launcher_background.png?alt=media&token=8bb5c4f2-0932-4aac-ad17-2c613b1af909"),
+        ),
+      ));
+      // await audioPlayer
+      //     .setUrl((serverLink + surahs[index].url).toString().trim());
 
-      await audioPlayer.setUrl(serverLink + surahs[index].url);
-
-      audioPlayer.playerStateStream.listen((playerState) {
+      audioPlayer!.playerStateStream.listen((playerState) {
         final isPlaying = playerState.playing;
         final processingState = playerState.processingState;
         if (processingState == ProcessingState.loading ||
@@ -46,14 +58,14 @@ class PlayQuranSoundCubit extends Cubit<PlayQuranSoundState> {
           emit(PausedAudioState());
         } else if (processingState != ProcessingState.completed) {
           buttonNotifier.value = ButtonState.playing;
-           emit(PlayingAudioState());
+          emit(PlayingAudioState());
         } else {
-           audioPlayer.seek(Duration.zero);
-          audioPlayer.pause();
+          audioPlayer!.seek(Duration.zero);
+          audioPlayer!.pause();
           changeSurah(true);
         }
       });
-      audioPlayer.positionStream.listen((position) {
+      audioPlayer!.positionStream.listen((position) {
         final oldState = progressNotifier.value;
         progressNotifier.value = ProgressBarState(
           current: position,
@@ -61,7 +73,7 @@ class PlayQuranSoundCubit extends Cubit<PlayQuranSoundState> {
           total: oldState.total,
         );
       });
-      audioPlayer.bufferedPositionStream.listen((bufferedPosition) {
+      audioPlayer!.bufferedPositionStream.listen((bufferedPosition) {
         final oldState = progressNotifier.value;
         progressNotifier.value = ProgressBarState(
           current: oldState.current,
@@ -69,7 +81,7 @@ class PlayQuranSoundCubit extends Cubit<PlayQuranSoundState> {
           total: oldState.total,
         );
       });
-      audioPlayer.durationStream.listen((totalDuration) {
+      audioPlayer!.durationStream.listen((totalDuration) {
         final oldState = progressNotifier.value;
         progressNotifier.value = ProgressBarState(
           current: oldState.current,
@@ -77,7 +89,7 @@ class PlayQuranSoundCubit extends Cubit<PlayQuranSoundState> {
           total: totalDuration ?? Duration.zero,
         );
       });
-      audioPlayer.play();
+      audioPlayer!.play();
       test();
     } catch (e) {
       debugPrint(e.toString());
@@ -85,15 +97,15 @@ class PlayQuranSoundCubit extends Cubit<PlayQuranSoundState> {
   }
 
   void seek(Duration position) {
-    audioPlayer.seek(position);
+    audioPlayer!.seek(position);
   }
 
   void play() async {
-    await audioPlayer.play();
+    await audioPlayer!.play();
   }
 
   void pause() async {
-    await audioPlayer.pause();
+    await audioPlayer!.pause();
   }
 
   // void stop() async {
@@ -102,11 +114,11 @@ class PlayQuranSoundCubit extends Cubit<PlayQuranSoundState> {
   // }
 
   void speed() async {
-    await audioPlayer.setSpeed(2.0);
+    await audioPlayer!.setSpeed(2.0);
   }
 
   test() {
-    Duration time = audioPlayer.duration!;
+    Duration time = audioPlayer!.duration!;
     duration = time.inSeconds;
     emit(GetDurationState());
   }
@@ -114,11 +126,11 @@ class PlayQuranSoundCubit extends Cubit<PlayQuranSoundState> {
   void changeVolume() async {
     emit(PlayQuranSoundInitial());
 
-    await audioPlayer.setVolume(volume / 100);
+    await audioPlayer!.setVolume(volume / 100);
     emit(ChangeAudioVolumeState());
   }
 
-  changeSurah(bool isIncrees) {
+  changeSurah(bool isIncrees) async {
     emit(PlayQuranSoundInitial());
 
     if (isIncrees) {
@@ -130,18 +142,16 @@ class PlayQuranSoundCubit extends Cubit<PlayQuranSoundState> {
         index--;
       }
     }
-    audioPlayer.stop();
-
-    audioPlayer.dispose();
-    init(serverLink: serverLink, index: index, surahs: surahs!);
+    audioPlayer!.stop();
+    audioPlayer!.dispose();
+    await init(serverLink: serverLink, index: index, surahs: surahs!);
     emit(ChangeShuraState());
   }
 
   @override
   Future close() {
-    audioPlayer.pause();
-    audioPlayer.stop();
-    audioPlayer.dispose();
+    audioPlayer!.stop();
+    audioPlayer!.dispose();
 
     return super.close();
   }

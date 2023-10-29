@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../core/repository/reciters_repository/reciters_repository_impl.dart';
-import '../../../core/utils/app_colors.dart';
-import '../../../core/utils/service_locator.dart';
+import 'package:flutter_bloc/flutter_bloc.dart'; 
+import '../../../core/utils/app_colors.dart'; 
 import '../../../core/utils/size_config.dart';
-import '../../../core/widgets/loading_item.dart';
-import '../../view_quran_list/view/view_quran_list_screen.dart';
+ import '../../view_quran_list/view/view_quran_list_screen.dart';
 import '../controller/quran_sound_cubit.dart';
 
 class QuranSoundScreen extends StatelessWidget {
@@ -14,8 +11,7 @@ class QuranSoundScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
      return BlocProvider(
-      create: (context) => QuranSoundCubit(sl.get<RecitersRepositoryImpl>())
-        ..getRecitersValues(),
+      create: (context) => QuranSoundCubit( ) ,
       child: BlocBuilder<QuranSoundCubit, QuranSoundState>(
         builder: (context, state) {
           final controller = QuranSoundCubit.get(context);
@@ -41,9 +37,7 @@ class QuranSoundScreen extends StatelessWidget {
               ),
               centerTitle: true,
             ),
-            body: controller.isLoadingReciters
-                ? const LoadingItem()
-                : ListView.separated(
+            body:  ListView.separated(
                     padding: EdgeInsets.all(getWidth(6)),
                     itemBuilder: (context, index) => Column(
                           mainAxisSize: MainAxisSize.min,

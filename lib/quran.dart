@@ -1,14 +1,14 @@
+ 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:quran_app/core/api/dio_consumer.dart';
 import 'package:quran_app/core/repository/azkar/azkar_repository_impl.dart';
 import 'package:quran_app/core/utils/service_locator.dart';
-import 'package:quran_app/modules/azkar/model/azkar_model.dart';
+ import 'package:quran_app/modules/azkar/model/azkar_model.dart';
 import 'package:quran_app/modules/quran_read/model/quran_model.dart';
 import 'core/repository/quran_head_line/quran_impl.dart';
-import 'modules/home_page/cubit/homepage_cubit.dart';
-
+import 'modules/home_page/controller/homepage_cubit.dart';
 import 'config/change_theme/changetheme_cubit.dart';
 import 'config/change_theme/changetheme_states.dart';
 import 'core/utils/app_string.dart';
@@ -26,9 +26,24 @@ class _QuranAppState extends State<QuranApp> {
   @override
   void initState() {
     super.initState();
+    // Alarm.init();
+    // Alarm.ringStream.stream.listen((alarmSettings) => setAlarm(
+    //     alarmBody: alarmSettings.notificationBody.toString(),
+    //     alarmId: alarmSettings.id,
+    //     alarmTime: DateTime.now().add(const Duration(minutes: 2)),
+    //     assetsAudio: 'audio/azan.mp3'));
+    scheduletask();
     QuranApp.navigatorKey = GlobalKey<NavigatorState>();
     getQuran();
     getAndSaveLocalData();
+  }
+
+  scheduletask() {
+    //schedule repeated corn job every 1 minute
+    // Cron().schedule(Schedule.parse('*/1 * * * *'), () async {
+    //   NotificationService().initNotification();
+    //   await NotificationService().showNotification(Random().nextInt(12222), "Quran", "صلاة الفجر");
+    // });
   }
 
   getAndSaveLocalData() async {
@@ -67,16 +82,19 @@ class _QuranAppState extends State<QuranApp> {
   }
 
   getQuran() async {
+
+    
     var quran = Hive.box<List<QuranModel>>(AppString.quranHiveBox);
-     if (quran.length != 144) {
-      for (int i = quran.length+1; i <= 114; i++) {
+  
+    if (quran.length != 144) {
+      for (int i = quran.length + 1; i <= 114; i++) {
         List<QuranModel> quranSurah = await QuranImpl().getQuran(i);
+   
         quran.add(quranSurah);
       }
-         await quran.close();
-    await Hive.openBox(AppString.quranHiveBox);
+      await quran.close();
+      await Hive.openBox(AppString.quranHiveBox);
     }
- 
   }
 
   @override

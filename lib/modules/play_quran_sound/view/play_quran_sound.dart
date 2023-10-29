@@ -29,12 +29,12 @@ class PlayQuranSoundScreen extends StatelessWidget {
         builder: (context, state) {
           final controller = PlayQuranSoundCubit.get(context);
           return Scaffold(
-            appBar: AppBar(
+            appBar: AppBar( 
               toolbarHeight: getHeight(100),
               leading: IconButton(
                   onPressed: () {
-                     controller.audioPlayer.pause();
-                     controller.audioPlayer.stop();
+                     controller.audioPlayer!.pause();
+                     controller.audioPlayer!.stop();
                     Navigator.pop(context);
                     
                   },

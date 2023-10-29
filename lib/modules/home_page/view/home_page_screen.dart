@@ -5,7 +5,7 @@ import 'package:intl/intl.dart' as intl;
 import '../../../core/utils/app_assets.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/size_config.dart';
-import '../cubit/homepage_cubit.dart';
+import '../controller/homepage_cubit.dart';
 
 class HomePageScreen extends StatelessWidget {
   const HomePageScreen({super.key});
@@ -142,7 +142,7 @@ class HomePageScreen extends StatelessWidget {
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                             Text(
-                                              "Show Pery Time",
+                                              "إظهار أوقات الصلاه",
                                               style: TextStyle(
                                                   fontSize: getFont(23),
                                                   fontWeight: FontWeight.bold,
@@ -156,7 +156,7 @@ class HomePageScreen extends StatelessWidget {
                                                   controllere
                                                       .getLocationAndPrayTime();
                                                 },
-                                                child: const Text("Enable"))
+                                                child: const Text("تفعيل"))
                                           ])
                               ],
                             ),

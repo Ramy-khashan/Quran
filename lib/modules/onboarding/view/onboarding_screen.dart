@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_app/core/utils/app_colors.dart';
 import 'package:quran_app/core/utils/size_config.dart';
- import 'package:quran_app/modules/navigator_bar/view/navigator_bar.dart';
+import 'package:quran_app/modules/navigator_bar/view/navigator_bar.dart';
 
 import '../../../core/utils/function/shared_preferance_utils.dart';
 import '../controller/onboarding_cubit.dart';
@@ -22,18 +22,17 @@ class OnBoardingScreen extends StatelessWidget {
             TextButton(
               onPressed: () {
                 PreferenceUtils.setString("onBoarding", "true");
-                                                  Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const NavigatorBarScreen(),
-                                      ),
-                                      (route) => false);
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const NavigatorBarScreen(),
+                    ),
+                    (route) => false);
               },
               child: const Text(
                 "تخطي",
                 style: TextStyle(
-                    fontSize: 27, 
+                    fontSize: 27,
                     fontWeight: FontWeight.bold,
                     decoration: TextDecoration.underline,
                     color: AppColors.primaryColor),
@@ -58,7 +57,7 @@ class OnBoardingScreen extends StatelessWidget {
                     itemCount: controller.onboardingItem.length,
                     itemBuilder: (context, index) => Image.asset(
                       "assets/images/${controller.onboardingItem[index].image}",
-                      cacheHeight:  330 ,
+                      cacheHeight: 330,
                       cacheWidth: index == 1 ? 350 : 300,
                       scale: index == 2 ? 0.7 : 1,
                     ),
@@ -95,7 +94,7 @@ class OnBoardingScreen extends StatelessWidget {
                                       fontFamily: "quran"),
                                 ),
                               ),
-                                SizedBox(
+                              SizedBox(
                                 height: getHeight(25),
                               ),
                             ],
@@ -109,11 +108,12 @@ class OnBoardingScreen extends StatelessWidget {
                                 (index) => AnimatedContainer(
                                       duration:
                                           const Duration(milliseconds: 400),
-                                      margin:
-                                          const EdgeInsets.only(right: 10),
-                                      width: getWidth(index == controller.selectedPage
-                                          ? 35
-                                          : 12,),
+                                      margin: const EdgeInsets.only(right: 10),
+                                      width: getWidth(
+                                        index == controller.selectedPage
+                                            ? 35
+                                            : 12,
+                                      ),
                                       height: getHeight(13),
                                       decoration: BoxDecoration(
                                           color:
@@ -127,7 +127,8 @@ class OnBoardingScreen extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height:getHeight( controller.selectedPage == 3 ? 25 : 0),
+                          height:
+                              getHeight(controller.selectedPage == 3 ? 25 : 0),
                         ),
                         controller.selectedPage == 3
                             ? ElevatedButton(
@@ -136,7 +137,8 @@ class OnBoardingScreen extends StatelessWidget {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 10)),
                                 onPressed: () {
-                PreferenceUtils.setString("onBoarding", "true");
+                                  PreferenceUtils.setString(
+                                      "onBoarding", "true");
 
                                   Navigator.pushAndRemoveUntil(
                                       context,
@@ -150,7 +152,7 @@ class OnBoardingScreen extends StatelessWidget {
                                   "بدأ التطبيق",
                                   style: TextStyle(
                                       fontSize: 25,
-                                      color: Colors.white, 
+                                      color: Colors.white,
                                       fontWeight: FontWeight.w500),
                                 ))
                             : const SizedBox.shrink()
