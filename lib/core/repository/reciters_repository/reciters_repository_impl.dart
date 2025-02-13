@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import '../../api/dio_consumer.dart';
 import '../../../modules/quran_sound/model/quran_audio_model.dart';
 
@@ -22,13 +23,13 @@ class RecitersRepositoryImpl implements RecitersRepository {
 
       for (var element in List.from(res["reciters"])) {
         reciters.add(QuranAudioModel.fromJson(element));
-        print(
+        debugPrint(
             "QuranAudioModel(id:${element["id"]},name:'${element["name"]}',letter:'${element["letter"]}',moshaf:[");
         element['moshaf'].forEach((v) {
-          print(
+          debugPrint(
               "Moshaf(id:${v['id']}, name:'${v['name']}', server:'${v['server']}',  surahTotal:${v['surah_total']},surahList:'${v['surah_list']}'),");
         });
-        print("],),");
+        debugPrint("],),");
       }
 
       return right(reciters);

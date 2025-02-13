@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import '../../../../core/utils/app_colors.dart';
@@ -65,7 +67,7 @@ class SurahDrawer extends StatelessWidget {
                       surah[i].nameAr,
                       style: TextStyle(
                         fontSize: getFont(24),
-                        fontFamily: "quran",
+                        fontFamily: Platform.isIOS ? "iosQuran" : "quran",
                       ),
                       textAlign: TextAlign.right,
                       textDirection: TextDirection.rtl,
@@ -75,8 +77,9 @@ class SurahDrawer extends StatelessWidget {
                     ),
                     Text(
                       surah[i].nameEn,
-                      style:
-                          TextStyle(fontSize: getFont(24), fontFamily: "quran"),
+                      style: TextStyle(
+                          fontSize: getFont(24),
+                          fontFamily: Platform.isIOS ? "iosQuran" : "quran"),
                       textAlign: TextAlign.left,
                       textDirection: TextDirection.ltr,
                     ),

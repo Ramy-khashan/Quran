@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_app/core/utils/app_colors.dart';
@@ -88,10 +90,11 @@ class OnBoardingScreen extends StatelessWidget {
                                       .description
                                       .toString(),
                                   textAlign: TextAlign.center,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       fontSize: 25,
                                       fontWeight: FontWeight.w600,
-                                      fontFamily: "quran"),
+                                      fontFamily:
+                                          Platform.isIOS ? "iosQuran" : "quran"),
                                 ),
                               ),
                               SizedBox(

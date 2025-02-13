@@ -1,10 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:quran_app/core/data/azkar_data.dart';
 import 'package:quran_app/core/utils/function/convert_to_arabic.dart';
 
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/camil_case.dart';
- import '../../azkar_details/view/azkar_detailsl_screen.dart';
+import '../../azkar_details/view/azkar_detailsl_screen.dart';
 
 class AzkarScreen extends StatelessWidget {
   const AzkarScreen({super.key});
@@ -17,10 +19,10 @@ class AzkarScreen extends StatelessWidget {
           backgroundColor: AppColors.primaryColor,
           title: Text(
             camilCaseMethod("الأذكار"),
-            style: const TextStyle(
+            style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
-                fontSize:  70 ,
+                fontSize: Platform.isAndroid ? 70 : 50,
                 letterSpacing: 1.2,
                 fontFamily: "Aldhabi"),
           ),
@@ -73,7 +75,7 @@ class AzkarScreen extends StatelessWidget {
                         color: index % 2 == 0 ? Colors.black : Colors.white,
                         fontSize: 25,
                         fontWeight: FontWeight.w600,
-                        fontFamily: "quran"),
+                        fontFamily: Platform.isIOS ? "iosQuran" : "quran"),
                   ),
                   trailing: Icon(
                     Icons.arrow_forward_ios_rounded,

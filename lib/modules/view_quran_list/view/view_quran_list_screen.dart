@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/utils/size_config.dart';
@@ -20,13 +22,16 @@ class ViewQuranList extends StatelessWidget {
       child: Scaffold(
           appBar: AppBar(
             toolbarHeight: getHeight(80),
-            title: Text.rich(TextSpan(children: [
-              TextSpan(text: '${quranAudioModel.name}\n'),
-              TextSpan(
-                  text: "( ${quranAudioModel.moshaf![moshafIndex].name} )",
-                  style: TextStyle(fontSize: getFont(16))),
-            ]),textAlign: TextAlign.center,),
-          centerTitle: true,
+            title: Text.rich(
+              TextSpan(children: [
+                TextSpan(text: '${quranAudioModel.name}\n'),
+                TextSpan(
+                    text: "( ${quranAudioModel.moshaf![moshafIndex].name} )",
+                    style: TextStyle(fontSize: getFont(16))),
+              ]),
+              textAlign: TextAlign.center,
+            ),
+            centerTitle: true,
           ),
           body: BlocBuilder<ViewQuranListCubit, ViewQuranListState>(
             builder: (context, state) {
@@ -55,7 +60,7 @@ class ViewQuranList extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: getFont(27),
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: "quran"),
+                                  fontFamily: Platform.isIOS ? "iosQuran" : "quran"),
                             ),
                           ),
                       separatorBuilder: (context, index) => const Divider(),

@@ -1,13 +1,14 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:math' show pi;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
 import 'package:flutter_svg/flutter_svg.dart';
- import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/geolocator.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/camil_case.dart';
- import '../../../core/widgets/loading_item.dart';
+import '../../../core/widgets/loading_item.dart';
 
 import 'widgets/locatin_error_shape.dart';
 
@@ -33,27 +34,27 @@ class _QiblahCompassScreenState extends State<QiblahCompassScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              )),
-          backgroundColor: AppColors.primaryColor,
-          title: Text(
-            camilCaseMethod("Qibla"),
-            style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-                fontSize: 70,
-                letterSpacing: 1.2,
-                fontFamily: "Aldhabi"),
-          ),
-          centerTitle: true,
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            )),
+        backgroundColor: AppColors.primaryColor,
+        title: Text(
+          camilCaseMethod("Qibla"),
+          style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+              fontSize: Platform.isAndroid ? 70 : 50,
+              letterSpacing: 1.2,
+              fontFamily: "Aldhabi"),
         ),
+        centerTitle: true,
+      ),
       body: Container(
         alignment: Alignment.center,
         padding: const EdgeInsets.all(8.0),
@@ -68,7 +69,7 @@ class _QiblahCompassScreenState extends State<QiblahCompassScreen> {
                 case LocationPermission.always:
                 case LocationPermission.whileInUse:
                   return QiblahCompassWidget();
-    
+
                 case LocationPermission.denied:
                   return LocationErrorWidget(
                     error: "Location service permission denied",
@@ -79,7 +80,7 @@ class _QiblahCompassScreenState extends State<QiblahCompassScreen> {
                     error: "Location service Denied Forever !",
                     callback: _checkLocationStatus,
                   );
-               
+
                 default:
                   return const SizedBox();
               }
@@ -128,49 +129,48 @@ class QiblahCompassWidget extends StatelessWidget {
   final _deviceSupport = FlutterQiblah.androidDeviceSensorSupport();
   @override
   Widget build(BuildContext context) {
-    return   FutureBuilder(
-        future: _deviceSupport,
-        builder: (_, AsyncSnapshot<bool?> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const LoadingItem();
-          }
-          if (snapshot.hasError) {
-            return Center(
-              child: Text("Error: ${snapshot.error.toString()}"),
-            );
-          }
+    return FutureBuilder(
+      future: _deviceSupport,
+      builder: (_, AsyncSnapshot<bool?> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const LoadingItem();
+        }
+        if (snapshot.hasError) {
+          return Center(
+            child: Text("Error: ${snapshot.error.toString()}"),
+          );
+        }
 
-          if (snapshot.data!) {
-            return StreamBuilder(
-              stream: FlutterQiblah.qiblahStream,
-              builder: (_, AsyncSnapshot<QiblahDirection> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const LoadingItem();
-                }
+        if (snapshot.data!) {
+          return StreamBuilder(
+            stream: FlutterQiblah.qiblahStream,
+            builder: (_, AsyncSnapshot<QiblahDirection> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const LoadingItem();
+              }
 
-                final qiblahDirection = snapshot.data!;
+              final qiblahDirection = snapshot.data!;
 
-                return Stack(
-                  alignment: Alignment.center,
-                  children: <Widget>[
-                    Transform.rotate(
-                      angle: (qiblahDirection.direction * (pi / 180) * -1),
-                      child: _compassSvg,
-                    ),
-                    Transform.rotate(
-                      angle: (qiblahDirection.qiblah * (pi / 180) * -1),
-                      alignment: Alignment.center,
-                      child: _needleSvg,
-                    ),
-                 
-                  ],
-                );
-              },
-            );
-          } else {
-            return const Center(child: Text("Not Avaliable on this phone"));
-          }
-        },
-      ) ;
+              return Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
+                  Transform.rotate(
+                    angle: (qiblahDirection.direction * (pi / 180) * -1),
+                    child: _compassSvg,
+                  ),
+                  Transform.rotate(
+                    angle: (qiblahDirection.qiblah * (pi / 180) * -1),
+                    alignment: Alignment.center,
+                    child: _needleSvg,
+                  ),
+                ],
+              );
+            },
+          );
+        } else {
+          return const Center(child: Text("Not Avaliable on this phone"));
+        }
+      },
+    );
   }
 }

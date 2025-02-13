@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,12 +37,12 @@ class TasbihScreen extends StatelessWidget {
                 const SizedBox(
                   height: 70,
                 ),
-                const Text(
+                Text(
                   "عدد التسبيحات",
                   style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.w500,
-                      fontFamily: "quran"),
+                      fontFamily: Platform.isIOS ? "iosQuran" : "quran"),
                 ),
                 const SizedBox(
                   height: 20,
@@ -48,12 +50,11 @@ class TasbihScreen extends StatelessWidget {
                 AnimatedFlipCounter(
                   duration: const Duration(milliseconds: 500),
                   value: controller.tasbih, //
-    
-                  textStyle: const TextStyle(
-                  
+
+                  textStyle: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.w500,
-                      fontFamily: "quran"),
+                      fontFamily: Platform.isIOS ? "iosQuran" : "quran"),
                 ),
                 Expanded(
                   child: Center(
@@ -108,11 +109,14 @@ class TasbihScreen extends StatelessWidget {
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical:8.0,horizontal: 15),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 15),
                     child: FloatingActionButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50)),
-                      onPressed: () {controller.reset();},
+                      onPressed: () {
+                        controller.reset();
+                      },
                       child: const Icon(Icons.restart_alt),
                     ),
                   ),

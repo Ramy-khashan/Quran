@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_app/core/utils/camil_case.dart';
@@ -34,10 +36,10 @@ class HadithsDetailsScreen extends StatelessWidget {
           backgroundColor: AppColors.primaryColor,
           title: Text(
             camilCaseMethod(name),
-            style: const TextStyle(
+            style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
-                fontSize: 70,
+                fontSize: Platform.isAndroid ? 70 : 50,
                 letterSpacing: 1.2,
                 fontFamily: "Aldhabi"),
           ),
@@ -57,7 +59,8 @@ class HadithsDetailsScreen extends StatelessWidget {
                           Expanded(
                             child: Stack(children: [
                               PageView.builder(
-                                onPageChanged: (index)=>controller.getPageIndex(index),
+                                onPageChanged: (index) =>
+                                    controller.getPageIndex(index),
                                 physics: const BouncingScrollPhysics(),
                                 controller: controller.pageController,
                                 itemBuilder: (context, index) => Container(
@@ -110,7 +113,8 @@ class HadithsDetailsScreen extends StatelessWidget {
                                 onTap: () {
                                   controller.changePage(nextPage: true);
                                 },
-                              ), ArrowMovingItem(
+                              ),
+                              ArrowMovingItem(
                                 width: controller.pageIndex != 0 ? 70 : 0,
                                 height: controller.pageIndex != 0 ? 70 : 0,
                                 isLeft: true,
@@ -118,7 +122,6 @@ class HadithsDetailsScreen extends StatelessWidget {
                                   controller.changePage(nextPage: false);
                                 },
                               ),
-                             
                             ]),
                           ),
                           controller.isLaodingForMore

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -27,7 +29,7 @@ class SuraScreen extends StatelessWidget {
         valueListenable: Hive.box(AppString.quranHiveBox).listenable(),
         builder: (context, box, child) {
           var quran = box.getAt(index);
-          
+
           return BlocProvider(
             create: (context) => SurahCubit()
               ..getFontSize()
@@ -47,10 +49,10 @@ class SuraScreen extends StatelessWidget {
                       elevation: 0,
                       title: Text(
                         surah[index].nameAr,
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontSize: 25,
                             letterSpacing: 1.2,
-                            fontFamily: "quran"),
+                            fontFamily: Platform.isIOS ? "iosQuran" : "quran"),
                       ),
                       backgroundColor: Colors.white,
                       scrolledUnderElevation: .5,
@@ -141,6 +143,7 @@ class SuraScreen extends StatelessWidget {
                                       ),
                                     ),
                                   ),
+                                  Text(index.toString()),
                                   SelectableText(
                                     quran[index].textAr.toString(),
                                     textAlign: TextAlign.right,
@@ -148,7 +151,9 @@ class SuraScreen extends StatelessWidget {
                                     style: TextStyle(
                                         fontSize: controller.size,
                                         fontWeight: FontWeight.w500,
-                                        fontFamily: "quran"),
+                                        fontFamily: Platform.isIOS
+                                            ? "iosQuran"
+                                            : "quran"),
                                   ),
                                   const SizedBox(
                                     height: 14,

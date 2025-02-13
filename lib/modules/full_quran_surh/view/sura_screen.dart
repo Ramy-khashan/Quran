@@ -1,5 +1,7 @@
 // import 'dart:ui';
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -41,8 +43,10 @@ class FullQuranSuraScreen extends StatelessWidget {
               title: Text(
                 surah[index].arabicName,
                 // (${controller.selectedPage} ص )",
-                style: const TextStyle(
-                    fontSize: 30, letterSpacing: 1.2, fontFamily: "quran"),
+                style: TextStyle(
+                    fontSize: 30,
+                    letterSpacing: 1.2,
+                    fontFamily: Platform.isIOS ? "iosQuran" : "quran"),
               ),
               centerTitle: true,
             ),
@@ -72,7 +76,7 @@ class FullQuranSuraScreen extends StatelessWidget {
             //     style: TextStyle(
             //         fontSize: getFont(40),
             //         letterSpacing: 1.2,
-            //         fontFamily: "quran"),
+            //         fontFamily:Platform.isIOS?"": "quran"),
             //   ),
             //   backgroundColor: Colors.white,
             //   scrolledUnderElevation: .5,
@@ -113,7 +117,7 @@ class FullQuranSuraScreen extends StatelessWidget {
             //             child: Text(
             //               quran.basmala,
             //               style: TextStyle(
-            //                   fontFamily: "quran",
+            //                   fontFamily:Platform.isIOS?"": "quran",
             //                   fontWeight: FontWeight.w600,
             //                   fontSize: getFont(controller.size + 6.0)),
             //             ),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +8,7 @@ import '../../../core/utils/app_assets.dart';
 import '../../view_quran_list/model/surah_model.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/size_config.dart';
-import '../cntroller/play_quran_sound_cubit.dart'; 
+import '../cntroller/play_quran_sound_cubit.dart';
 import '../model/page_manager.dart';
 
 class PlayQuranSoundScreen extends StatelessWidget {
@@ -29,14 +31,13 @@ class PlayQuranSoundScreen extends StatelessWidget {
         builder: (context, state) {
           final controller = PlayQuranSoundCubit.get(context);
           return Scaffold(
-            appBar: AppBar( 
+            appBar: AppBar(
               toolbarHeight: getHeight(100),
               leading: IconButton(
                   onPressed: () {
-                     controller.audioPlayer!.pause();
-                     controller.audioPlayer!.stop();
+                    controller.audioPlayer!.pause();
+                    controller.audioPlayer!.stop();
                     Navigator.pop(context);
-                    
                   },
                   icon: const Icon(
                     FontAwesomeIcons.arrowLeft,
@@ -44,13 +45,13 @@ class PlayQuranSoundScreen extends StatelessWidget {
                   )),
               backgroundColor: AppColors.primaryColor,
               title: Text(
-               "سورة ${surahs[controller.index].name}",
+                "سورة ${surahs[controller.index].name}",
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w500,
                     fontSize: getFont(40),
                     letterSpacing: 1.2,
-                    fontFamily: "quran"),
+                    fontFamily: Platform.isIOS ? "iosQuran" : "quran"),
               ),
               centerTitle: true,
             ),

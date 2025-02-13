@@ -122,7 +122,12 @@ flutter:
         - asset: assets/fonts/aldhabi.ttf
     - family: quran
       fonts:
-        - asset: assets/fonts/quran_font.ttf
+        # - asset: assets/fonts/quran_font.ttf
+        - asset: assets/fonts/AmiriQuran-Regular.ttf
+    - family: iosQuran
+      fonts:
+        # - asset: assets/fonts/quran_font.ttf
+        - asset: assets/fonts/ArefRuqaa-Regular.ttf
     - family: head
       fonts:
         - asset: assets/fonts/head.ttf

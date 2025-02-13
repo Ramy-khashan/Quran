@@ -1,4 +1,5 @@
- 
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -67,25 +68,37 @@ class SettingsCubit extends Cubit<SettingsState> {
     }
   }
 
-  setAzkar(
-      {required String uniqueKey,
-      required String taskTitle, }) async {
+  setAzkar({
+    required String uniqueKey,
+    required String taskTitle,
+  }) async {
     await [
       Permission.notification,
     ].request();
 
     emit(SettingsInitial());
-    await Workmanager()
-        .registerPeriodicTask(
-          uniqueKey,
-          taskTitle,
-          constraints: Constraints(
-            networkType: NetworkType.connected, // Optional
-          ),
-          frequency: const Duration(hours: 4),
-        )
-        .then((value) => changeActive(taskName: taskTitle));
-    
+    Platform.isAndroid
+        ? await Workmanager()
+            .registerPeriodicTask(
+              uniqueKey,
+              taskTitle,
+              constraints: Constraints(
+                networkType: NetworkType.connected, // Optional
+              ),
+              frequency: const Duration(hours: 4),
+            )
+            .then((value) => changeActive(taskName: taskTitle))
+        : Workmanager()
+            .registerOneOffTask(
+              uniqueKey,
+              taskTitle,
+              constraints: Constraints(
+                networkType: NetworkType.connected, // Optional
+              ),
+              // frequency: const Duration(hours: 4),
+            )
+            .then((value) => changeActive(taskName: taskTitle));
+
     emit(SetAzanState());
   }
 
@@ -97,7 +110,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
     emit(SettingsInitial());
 
-    await Workmanager()
+    Platform.isAndroid?  await Workmanager()
         .registerPeriodicTask(
           uniqueKeyFri,
           taskTitleFri,
@@ -105,6 +118,15 @@ class SettingsCubit extends Cubit<SettingsState> {
             networkType: NetworkType.connected, // Optional
           ),
           frequency: const Duration(minutes: 15),
+        )
+        .then((value) => changeActive(taskName: taskTitleFri)):await Workmanager()
+        .registerOneOffTask(
+          uniqueKeyFri,
+          taskTitleFri,
+          constraints: Constraints(
+            networkType: NetworkType.connected, // Optional
+          ),
+          // frequency: const Duration(minutes: 15),
         )
         .then((value) => changeActive(taskName: taskTitleFri));
     emit(SetFridayAzkarState());

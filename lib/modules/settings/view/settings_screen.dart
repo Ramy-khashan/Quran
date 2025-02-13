@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:intl/intl.dart' as intl;
@@ -8,7 +10,7 @@ import '../controller/settings_cubit.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
- 
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -18,12 +20,12 @@ class SettingsScreen extends StatelessWidget {
           child: Scaffold(
             appBar: AppBar(
               backgroundColor: AppColors.primaryColor,
-              title: const Text(
+              title:   Text(
                 "الأعدادات",
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w500,
-                    fontSize: 70,
+                    fontSize: Platform.isAndroid?70:50,
                     letterSpacing: 1.2,
                     fontFamily: "Aldhabi"),
               ),
@@ -35,9 +37,11 @@ class SettingsScreen extends StatelessWidget {
                 return Column(
                   children: [
                     ListTile(
-                      title: const Text(
+                      title: Text(
                         "إرسال أذكار بإستمرار",
-                        style: TextStyle(fontSize: 22, fontFamily: "quran"),
+                        style: TextStyle(
+                            fontSize: 22,
+                            fontFamily: Platform.isIOS ? "iosQuran" : "quran"),
                       ),
                       trailing: Switch.adaptive(
                           value: controller.isAzkar,
@@ -53,9 +57,11 @@ class SettingsScreen extends StatelessWidget {
                           }),
                     ),
                     ListTile(
-                      title: const Text(
+                      title: Text(
                         "إرسال أذكار يوم الجمعة",
-                        style: TextStyle(fontSize: 22, fontFamily: "quran"),
+                        style: TextStyle(
+                            fontSize: 22,
+                            fontFamily: Platform.isIOS ? "iosQuran" : "quran"),
                       ),
                       trailing: Switch.adaptive(
                           value: controller.isFridayAzkar,
@@ -73,7 +79,7 @@ class SettingsScreen extends StatelessWidget {
                     // ListTile(
                     //   title: const Text(
                     //     "تذكير صلاة الفجر",
-                    //     style: TextStyle(fontSize: 22, fontFamily: "quran"),
+                    //     style: TextStyle(fontSize: 22, fontFamily:Platform.isIOS?"": "quran"),
                     //   ),
                     //   trailing: Switch.adaptive(
                     //       value: controller.isFajr,
@@ -90,7 +96,7 @@ class SettingsScreen extends StatelessWidget {
                     // ListTile(
                     //   title: const Text(
                     //     "تذكير صلاة الضهر",
-                    //     style: TextStyle(fontSize: 22, fontFamily: "quran"),
+                    //     style: TextStyle(fontSize: 22, fontFamily:Platform.isIOS?"": "quran"),
                     //   ),
                     //   trailing: Switch.adaptive(
                     //       value: controller.isDhuhr,
@@ -107,7 +113,7 @@ class SettingsScreen extends StatelessWidget {
                     // ListTile(
                     //   title: const Text(
                     //     "تذكير صلاة العصر",
-                    //     style: TextStyle(fontSize: 22, fontFamily: "quran"),
+                    //     style: TextStyle(fontSize: 22, fontFamily:Platform.isIOS?"": "quran"),
                     //   ),
                     //   trailing: Switch.adaptive(
                     //       value: controller.isAsr,
@@ -124,7 +130,7 @@ class SettingsScreen extends StatelessWidget {
                     // ListTile(
                     //   title: const Text(
                     //     "تذكير صلاة المغرب",
-                    //     style: TextStyle(fontSize: 22, fontFamily: "quran"),
+                    //     style: TextStyle(fontSize: 22, fontFamily:Platform.isIOS?"": "quran"),
                     //   ),
                     //   trailing: Switch.adaptive(
                     //       value: controller.isMaghrib,
@@ -141,7 +147,7 @@ class SettingsScreen extends StatelessWidget {
                     // ListTile(
                     //   title: const Text(
                     //     "تذكير صلاة العشاء",
-                    //     style: TextStyle(fontSize: 22, fontFamily: "quran"),
+                    //     style: TextStyle(fontSize: 22, fontFamily:Platform.isIOS?"": "quran"),
                     //   ),
                     //   trailing: Switch.adaptive(
                     //       value: controller.isIsha,

@@ -1,8 +1,7 @@
 import 'dart:math';
 import 'package:adhan_dart/adhan_dart.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hive_flutter/adapters.dart';
+ import 'package:hive_flutter/adapters.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:quran_app/core/data/azkar_data.dart';
@@ -97,7 +96,7 @@ void callbackDispatcher() async {
         }
         break;
       case taskAzanFajr:
-         // NotificationService().showNotification(11, "Quran", "صلاة الفجر");
+        // NotificationService().showNotification(11, "Quran", "صلاة الفجر");
         setAlarm(
             alarmId: 0,
             alarmTime: prayerTimes.fajr!.add(const Duration(hours: 2)),
@@ -152,11 +151,11 @@ void callbackDispatcher() async {
         //   )).then((value) => log("صلاة العصر"));}catch(e){
         //     log(e.toString());
         //   }
-        Fluttertoast.showToast(msg: "LOLLLLL");
+        // Fluttertoast.showToast(msg: "LOLLLLL");
 
         break;
       case taskAzanMaghrib:
-          setAlarm(
+        setAlarm(
             alarmId: 3,
             alarmTime: prayerTimes.maghrib!.add(const Duration(hours: 2)),
             assetsAudio: 'audio/azan.mp3',
@@ -164,7 +163,7 @@ void callbackDispatcher() async {
 
         break;
       case taskAzanIsha:
-         setAlarm(
+        setAlarm(
             alarmId: 4,
             alarmTime: prayerTimes.isha!.add(const Duration(hours: 2)),
             assetsAudio: 'audio/azan.mp3',
@@ -194,7 +193,6 @@ Future<void> main() async {
         home: Directionality(
           textDirection: TextDirection.rtl,
           child: Scaffold(
-            
             body: Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.all(20),

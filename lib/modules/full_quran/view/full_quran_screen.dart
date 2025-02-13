@@ -1,7 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/utils/app_colors.dart';
- 
+
 import '../../full_quran_surh/view/sura_screen.dart';
 import '../controller/quran_reading_cubit.dart';
 
@@ -23,12 +25,12 @@ class FullQuranScreen extends StatelessWidget {
                     color: Colors.white,
                   )),
               backgroundColor: AppColors.primaryColor,
-              title: const Text(
+              title: Text(
                 "قرأن",
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w500,
-                    fontSize: 70,
+                    fontSize: Platform.isAndroid ? 70 : 50,
                     letterSpacing: 1.2,
                     fontFamily: "Aldhabi"),
               ),
@@ -41,9 +43,8 @@ class FullQuranScreen extends StatelessWidget {
                     ? const Center(child: CircularProgressIndicator())
                     : ListView.separated(
                         itemBuilder: (context, index) => ListTile(
-                         
                           leading: Image.asset(
-                           controller.surahList[index].revelationPlace ==
+                            controller.surahList[index].revelationPlace ==
                                     "makkah"
                                 ? "assets/images/meccan.png"
                                 : "assets/images/medinan.png",
@@ -56,11 +57,12 @@ class FullQuranScreen extends StatelessWidget {
                             children: [
                               Text(
                                 controller.surahList[index].arabicName,
-                               
                                 textAlign: TextAlign.right,
                                 textDirection: TextDirection.rtl,
-                                style: const TextStyle(
-                                    fontSize: 20, fontFamily: "quran"),
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontFamily:
+                                        Platform.isIOS ? "iosQuran" : "quran"),
                               ),
                               Text(
                                 controller.surahList[index].name,

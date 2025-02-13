@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +26,7 @@ class AzkarDetailsScreen extends StatelessWidget {
           valueListenable: Hive.box(AppString.azkarHiveBox).listenable(),
           builder: (context, box, child) {
             var azkar = box.getAt(id - 1);
-    
+
             return BlocProvider(
               create: (context) =>
                   AzkarDetailsCubit(sl.get<AzkarRepositoryImpl>())
@@ -33,7 +35,7 @@ class AzkarDetailsScreen extends StatelessWidget {
                 builder: (context, state) {
                   final controller = AzkarDetailsCubit.get(context);
                   return Scaffold(
-                      appBar: AppBar( 
+                      appBar: AppBar(
                         leading: IconButton(
                             onPressed: () {
                               Navigator.pop(context);
@@ -44,7 +46,7 @@ class AzkarDetailsScreen extends StatelessWidget {
                             )),
                         backgroundColor: AppColors.primaryColor,
                         title: Text(
-                          title, 
+                          title,
                           style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w500,
@@ -53,26 +55,30 @@ class AzkarDetailsScreen extends StatelessWidget {
                               fontFamily: "Kitab"),
                         ),
                         centerTitle: true,
-                        bottom: PreferredSize(preferredSize: const Size(double.infinity, 30), child:  Row(
-                            children: [
-                              CupertinoCheckbox(
-                                  side: const BorderSide(
-                                      color: Colors.white, width: 2),
-                                  value: controller.isEnableEn,
-                                  activeColor: AppColors.secandColor,
-                                  onChanged: (value) {
-                                    controller.changeEnableEn(value);
-                                  }),
-                               const Text(
-                            "اللغه الأنجليزيه",
-                            style: TextStyle(
-                                fontSize: 21, color: Colors.white,fontWeight: FontWeight.w700),
-                          ),
-                              const SizedBox(
-                                width: 5,
-                              )
-                            ],
-                          )),
+                        bottom: PreferredSize(
+                            preferredSize: const Size(double.infinity, 30),
+                            child: Row(
+                              children: [
+                                CupertinoCheckbox(
+                                    side: const BorderSide(
+                                        color: Colors.white, width: 2),
+                                    value: controller.isEnableEn,
+                                    activeColor: AppColors.secandColor,
+                                    onChanged: (value) {
+                                      controller.changeEnableEn(value);
+                                    }),
+                                const Text(
+                                  "اللغه الأنجليزيه",
+                                  style: TextStyle(
+                                      fontSize: 21,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                )
+                              ],
+                            )),
                       ),
                       body: Stack(
                         children: [
@@ -113,7 +119,8 @@ class AzkarDetailsScreen extends StatelessWidget {
                                       shape: BoxShape.circle),
                                   child: Center(
                                     child: AnimatedFlipCounter(
-                                      duration: const Duration(milliseconds: 500),
+                                      duration:
+                                          const Duration(milliseconds: 500),
                                       value: controller.counterList[index], //
                                       textStyle: const TextStyle(
                                           fontSize: 28,
@@ -125,27 +132,29 @@ class AzkarDetailsScreen extends StatelessWidget {
                               ),
                               body: SingleChildScrollView(
                                 padding: const EdgeInsets.only(
-                                    top: 8.0, right: 8.0, left: 8.0, bottom: 120),
+                                    top: 8.0,
+                                    right: 8.0,
+                                    left: 8.0,
+                                    bottom: 120),
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
                                   children: [
                                     Row(
                                       mainAxisSize: MainAxisSize.min,
-                                    
                                       children: [
-                                     
                                         IconButton(
-                                          onPressed:
-                                              controller.selectedOne == index
-                                                  ? () async {
-                                                      controller.stop();
-                                                    }
-                                                  : () async {
-                                                      await controller.play(
-                                                          List.from(azkar)[index]
-                                                              .aUDIO,
-                                                          index);
-                                                    },
+                                          onPressed: controller.selectedOne ==
+                                                  index
+                                              ? () async {
+                                                  controller.stop();
+                                                }
+                                              : () async {
+                                                  await controller.play(
+                                                      List.from(azkar)[index]
+                                                          .aUDIO,
+                                                      index);
+                                                },
                                           icon: CircleAvatar(
                                             child: Icon(
                                                 controller.selectedOne == index
@@ -153,7 +162,7 @@ class AzkarDetailsScreen extends StatelessWidget {
                                                     : FontAwesomeIcons.play),
                                           ),
                                         ),
-                                           Text(
+                                        Text(
                                           "( قم بتكرار عدد ${convertToArabic(List.from(azkar)[index].rEPEAT.toString())} مره )",
                                           style: const TextStyle(
                                               fontSize: 18,
@@ -176,8 +185,10 @@ class AzkarDetailsScreen extends StatelessWidget {
                                               .toString(),
                                       textAlign: TextAlign.right,
                                       textDirection: TextDirection.rtl,
-                                      style: const TextStyle(
-                                          fontSize: 25, fontFamily: "quran"),
+                                      style:   TextStyle(
+                                          fontSize: 25,
+                                          fontFamily:
+                                              Platform.isIOS ? "iosQuran" : "quran"),
                                     ),
                                     const SizedBox(
                                       height: 13,
@@ -199,17 +210,17 @@ class AzkarDetailsScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                           ArrowMovingItem(
+                          ArrowMovingItem(
                             width: controller.pageIndex + 1 ==
-                                            List.from(azkar).length ||
-                                        List.from(azkar).length == 1
-                                    ? 0
-                                    : 70,
-                                height: controller.pageIndex + 1 ==
-                                            List.from(azkar).length ||
-                                        List.from(azkar).length == 1
-                                    ? 0
-                                    : 70,
+                                        List.from(azkar).length ||
+                                    List.from(azkar).length == 1
+                                ? 0
+                                : 70,
+                            height: controller.pageIndex + 1 ==
+                                        List.from(azkar).length ||
+                                    List.from(azkar).length == 1
+                                ? 0
+                                : 70,
                             isLeft: false,
                             onTap: () {
                               controller.changeePage(nextPage: true);
@@ -223,7 +234,6 @@ class AzkarDetailsScreen extends StatelessWidget {
                               controller.changeePage(nextPage: false);
                             },
                           ),
-                     
                         ],
                       ));
                 },

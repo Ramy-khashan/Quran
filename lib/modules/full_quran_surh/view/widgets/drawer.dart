@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:quran_app/core/utils/function/convert_to_arabic.dart';
 
@@ -57,7 +59,9 @@ class SurahDrawer extends StatelessWidget {
                 },
                 trailing: Text(
                   surah[i].arabicName,
-                  style: TextStyle(fontSize: getFont(24), fontFamily: "quran"),
+                  style: TextStyle(
+                      fontSize: getFont(24),
+                      fontFamily: Platform.isIOS ? "iosQuran" : "quran"),
                 ),
                 leading: CircleAvatar(
                   child: Text(

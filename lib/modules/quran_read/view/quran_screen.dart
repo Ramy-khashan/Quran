@@ -1,8 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/data/surah_head_data.dart';
 import '../../../core/utils/app_colors.dart';
- import '../../sura/view/sura_screen.dart';
+import '../../sura/view/sura_screen.dart';
 
 import '../controller/quran_reading_cubit.dart';
 
@@ -24,12 +26,12 @@ class QuranScreen extends StatelessWidget {
                     color: Colors.white,
                   )),
               backgroundColor: AppColors.primaryColor,
-              title: const Text(
+              title: Text(
                 "قرأن",
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w500,
-                    fontSize: 70,
+                    fontSize: Platform.isAndroid ? 70 : 50,
                     letterSpacing: 1.2,
                     fontFamily: "Aldhabi"),
               ),
@@ -53,8 +55,10 @@ class QuranScreen extends StatelessWidget {
                           SurahHeadData.surahhead[index].nameAr,
                           textAlign: TextAlign.right,
                           textDirection: TextDirection.rtl,
-                          style: const TextStyle(
-                              fontSize: 20, fontFamily: "quran"),
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontFamily:
+                                  Platform.isIOS ? "iosQuran" : "quran"),
                         ),
                         Text(
                           SurahHeadData.surahhead[index].nameEn,

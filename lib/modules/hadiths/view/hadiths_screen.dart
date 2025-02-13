@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import '../../../core/data/hadith_data.dart';
 import '../../../core/utils/app_colors.dart';
@@ -14,12 +16,12 @@ class HadithsScreen extends StatelessWidget {
       child: Scaffold(
           appBar: AppBar(
             backgroundColor: AppColors.primaryColor,
-            title: const Text(
+            title: Text(
               "الأحاديث",
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w500,
-                  fontSize: 70,
+                  fontSize: Platform.isAndroid ? 70 : 50,
                   letterSpacing: 1.2,
                   fontFamily: "Aldhabi"),
             ),

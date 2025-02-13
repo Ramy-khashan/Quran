@@ -22,7 +22,7 @@ class HomePageScreen extends StatelessWidget {
             return Column(
               children: [
                 Expanded(
-                    flex: 5,
+                    flex: 6,
                     child: SafeArea(
                       child: Stack(
                         children: [
@@ -31,7 +31,7 @@ class HomePageScreen extends StatelessWidget {
                               child: Image.asset(
                                 AppAssets.mosqueImage,
                                 color: Colors.black54,
-                                height: getHeight(150),
+                                height: getHeight(160),
                                 width: 400,
                                 fit: BoxFit.fill,
                               )),
@@ -117,8 +117,7 @@ class HomePageScreen extends StatelessWidget {
                                                                   index]
                                                               .img,
                                                           color: Colors.white,
-                                                          width: 30,
-                                                          height: 30,
+                                                          scale: 18,
                                                         ),
                                                         Text(
                                                           controllere
