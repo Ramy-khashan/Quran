@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:adhan_dart/adhan_dart.dart';
 import 'package:flutter/material.dart';
- import 'package:hive_flutter/adapters.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:quran_app/core/data/azkar_data.dart';
@@ -64,10 +64,12 @@ void callbackDispatcher() async {
       double.parse(PreferenceUtils.getString(StorageKey.longitude).toString());
 
   Coordinates coordinates = Coordinates(latuitde, longitude);
-  CalculationParameters params = CalculationMethod.MuslimWorldLeague();
+  CalculationParameters params = CalculationMethod.muslimWorldLeague();
 
   PrayerTimes prayerTimes = PrayerTimes(
-      coordinates, DateTime.now().toLocal(), params,
+      coordinates: coordinates,
+      date: DateTime.now().toLocal(),
+      calculationParameters: params,
       precision: true);
   int randomAzkarIndex = Random().nextInt(AzkarData.azkar.length - 1);
   Workmanager().executeTask((taskName, inputData) async {

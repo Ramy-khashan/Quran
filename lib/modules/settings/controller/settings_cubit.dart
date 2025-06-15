@@ -110,25 +110,27 @@ class SettingsCubit extends Cubit<SettingsState> {
 
     emit(SettingsInitial());
 
-    Platform.isAndroid?  await Workmanager()
-        .registerPeriodicTask(
-          uniqueKeyFri,
-          taskTitleFri,
-          constraints: Constraints(
-            networkType: NetworkType.connected, // Optional
-          ),
-          frequency: const Duration(minutes: 15),
-        )
-        .then((value) => changeActive(taskName: taskTitleFri)):await Workmanager()
-        .registerOneOffTask(
-          uniqueKeyFri,
-          taskTitleFri,
-          constraints: Constraints(
-            networkType: NetworkType.connected, // Optional
-          ),
-          // frequency: const Duration(minutes: 15),
-        )
-        .then((value) => changeActive(taskName: taskTitleFri));
+    Platform.isAndroid
+        ? await Workmanager()
+            .registerPeriodicTask(
+              uniqueKeyFri,
+              taskTitleFri,
+              constraints: Constraints(
+                networkType: NetworkType.connected, // Optional
+              ),
+              frequency: const Duration(minutes: 15),
+            )
+            .then((value) => changeActive(taskName: taskTitleFri))
+        : await Workmanager()
+            .registerOneOffTask(
+              uniqueKeyFri,
+              taskTitleFri,
+              constraints: Constraints(
+                networkType: NetworkType.connected, // Optional
+              ),
+              // frequency: const Duration(minutes: 15),
+            )
+            .then((value) => changeActive(taskName: taskTitleFri));
     emit(SetFridayAzkarState());
   }
 

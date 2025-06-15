@@ -41,9 +41,7 @@ class HomepageCubit extends Cubit<HomepageState> {
   }
 
   updateLoation() async {
-    
     await determinePosition().then((value) async {
-    
       latuitde = value.latitude;
       longitude = value.longitude;
       await getPrayTime();
@@ -76,11 +74,13 @@ class HomepageCubit extends Cubit<HomepageState> {
     isLoading = true;
     emit(LoadingGetPrayTimeState());
 
-    Coordinates coordinates = Coordinates(latuitde, longitude);
-    CalculationParameters params = CalculationMethod.MuslimWorldLeague();
+    Coordinates coordinates = Coordinates(latuitde!, longitude!);
+    CalculationParameters params = CalculationMethod.muslimWorldLeague();
 
     PrayerTimes prayerTimes = PrayerTimes(
-        coordinates, DateTime.now().toLocal(), params,
+        coordinates: coordinates,
+        date: DateTime.now().toLocal(),
+        calculationParameters: params,
         precision: true);
     prayerTimes.nextPrayer();
 
@@ -120,32 +120,32 @@ class HomepageCubit extends Cubit<HomepageState> {
 
   nextPray() {
     try {
-      if (prayTime!.currentPrayer(date: DateTime.now()) == Prayer.Fajr) {
+      if (prayTime!.currentPrayer(date: DateTime.now()) == Prayer.fajr) {
         time = prayTime!.sunrise!.difference(DateTime.now());
         pray = "Sunrise";
       } else if (prayTime!.currentPrayer(date: DateTime.now()) ==
-          Prayer.Sunrise) {
+          Prayer.sunrise) {
         time = prayTime!.dhuhr!.difference(DateTime.now());
         pray = "Dhuhr";
       } else if (prayTime!.currentPrayer(date: DateTime.now()) ==
-          Prayer.Dhuhr) {
+          Prayer.dhuhr) {
         time = prayTime!.asr!.difference(DateTime.now());
         pray = "Asr";
-      } else if (prayTime!.currentPrayer(date: DateTime.now()) == Prayer.Asr) {
+      } else if (prayTime!.currentPrayer(date: DateTime.now()) == Prayer.asr) {
         time = prayTime!.maghrib!.difference(DateTime.now());
         pray = "Maghrib";
       } else if (prayTime!.currentPrayer(date: DateTime.now()) ==
-          Prayer.Maghrib) {
+          Prayer.maghrib) {
         time = prayTime!.isha!.difference(DateTime.now());
         pray = "Isha";
-      } else if (prayTime!.currentPrayer(date: DateTime.now()) == Prayer.Isha) {
+      } else if (prayTime!.currentPrayer(date: DateTime.now()) == Prayer.isha) {
         time = prayTime!.fajrafter!.difference(DateTime.now());
         pray = "Fajr";
       } else if (prayTime!.currentPrayer(date: DateTime.now()) ==
-          Prayer.IshaBefore) {
+          Prayer.ishaBefore) {
         time = prayTime!.dhuhr!.difference(DateTime.now());
         pray = "Dhuhr";
-      } else if (prayTime!.currentPrayer(date: DateTime.now()) == Prayer.None) {
+      } else if (prayTime!.currentPrayer(date: DateTime.now()) == Prayer.none) {
         time = prayTime!.fajr!.difference(DateTime.now());
         pray = "Fajr";
       }
